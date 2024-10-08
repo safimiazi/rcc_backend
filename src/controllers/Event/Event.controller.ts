@@ -1,3 +1,4 @@
+import { db } from "@/database";
 import { EventService } from "@/service/Event/Event.service";
 import { unlinkSync } from "fs";
 
@@ -20,6 +21,24 @@ export const EventController = {
       if (opt) {
         await unlinkSync(opt + ".webp");
       }
+      next(error);
+    }
+  },
+  async update_archive_image(req, res, next) {
+    try {
+      const { files, body } = req;
+      const Event = await db.Event.findOne({
+        where: {
+          id: body.id,
+        },
+      });
+
+      const Update = await Event.update({
+        archive_images: files,
+      });
+
+      res.send(Event);
+    } catch (error) {
       next(error);
     }
   },
