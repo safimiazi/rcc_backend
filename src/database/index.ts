@@ -4,6 +4,7 @@ import { Sequelize, HasMany, Transaction } from "sequelize";
 
 import { log } from "console";
 import { AdminI, AdminModel } from "./model/Admin";
+import { EventModel } from "./model/Event";
 const LogQuery = false;
 
 const sequelize = new Sequelize({
@@ -36,11 +37,12 @@ const sequelize = new Sequelize({
 
 sequelize.authenticate();
 const Admin = AdminModel(sequelize);
+const Event = EventModel(sequelize);
 
 // FundTransfer > to account
-
 
 export const db = {
   sequelize,
   Admin,
+  Event,
 } as const;
