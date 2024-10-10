@@ -11,7 +11,7 @@ const photoComposure = (
   const single = async (req, res, next) => {
     try {
       const { file } = req;
-
+      
       if (!file) {
         return next();
       }
