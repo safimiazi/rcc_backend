@@ -19,7 +19,7 @@ app.post(
   getMulter({
     destination: des,
   }).single("photo"),
-  photoComposure(des).single,
+
   EventController.CreateEvent
 );
 
@@ -29,7 +29,7 @@ app.post(
   getMulter({
     destination: des,
   }).array("archive_img"),
-  photoComposure(des).double,
+
   EventController.CreateEvent
 );
 
