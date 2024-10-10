@@ -6,15 +6,21 @@ export const EventController = {
   async CreateEvent(req, res, next) {
     try {
       //upload the photo use multer
-      const { file, user } = req;
+      const { file } = req;
       const opt = file ? file.opt : null;
+      
       const Payload = {
-        ...req.body,
+        ...JSON.parse(req.body.data),
         event_image: opt ? opt : "no",
+        event_img: opt ? opt : "no",
       };
+
+      console.log("🚀 ~ CreateEvent ~ Payload:", Payload)
+      
       const NewEvent = await EventService.CreateEvent(Payload);
       res.send(NewEvent);
     } catch (error) {
+      
       // if any error occurs then delete uploaded file
       const { file } = req;
       const opt = file ? file.path : null;

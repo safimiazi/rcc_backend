@@ -26,6 +26,7 @@ function getMulter({
 
 function fileFilter(regex, images) {
   return function (_, file, cb) {
+    
     const extName = regex.test(path.extname(file.originalname).toLowerCase());
     const mimeType = regex.test(file.mimetype);
     if (mimeType && extName) {

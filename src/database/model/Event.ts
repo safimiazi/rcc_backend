@@ -40,7 +40,7 @@ export function EventModel(sequelize: Sequelize) {
         defaultValue: DataTypes.UUIDV4,
       },
       event_name: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
       },
 
@@ -53,15 +53,15 @@ export function EventModel(sequelize: Sequelize) {
         allowNull: false,
       },
       language: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       category: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       event_image: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: true,
       },
 

@@ -12,6 +12,7 @@ export const AdminController = {
   async Login(req, res, next) {
     try {
       const { email, password } = req.body;
+      console.log("🚀 ~ Login ~ req.body:", req.body)
       if (!email || !password) {
         throw errorCreate(406, "Please enter a The Credentials !");
       }
