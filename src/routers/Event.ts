@@ -33,4 +33,10 @@ app.post(
   EventController.CreateEvent
 );
 
+app.get("/get_all_event_public", EventController.GetAllActiveEvents);
+
+app.get("/get_all_event_admin", EventController.getAllEvents);
+
+app.get("/get_event_by_id", EventController.getEventById);
+
 export default MakeRouter;

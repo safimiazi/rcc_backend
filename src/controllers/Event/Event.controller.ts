@@ -24,6 +24,7 @@ export const EventController = {
       next(error);
     }
   },
+
   async update_archive_image(req, res, next) {
     try {
       const { files, body } = req;
@@ -37,6 +38,34 @@ export const EventController = {
         archive_images: files,
       });
 
+      res.send(Event);
+    } catch (error) {
+      next(error);
+    }
+  },
+  // get all event active
+  async GetAllActiveEvents(req, res, next) {
+    try {
+      const events = await EventService.GetAllActivePublic();
+      res.send(events);
+    } catch (error) {
+      next(error);
+    }
+  },
+  // get all events
+  async getAllEvents(req, res, next) {
+    try {
+      const events = await EventService.GetAllEventAdmin();
+      res.send(events);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  // get event by id
+  async getEventById(req, res, next) {
+    try {
+      const Event = await EventService.GetEventByEventId(req.query.id);
       res.send(Event);
     } catch (error) {
       next(error);

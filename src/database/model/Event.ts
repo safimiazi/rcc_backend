@@ -25,6 +25,7 @@ export interface EventI
   location: string;
   description: string;
   faqs: Object;
+  status: "active" | "Deactivate";
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -72,7 +73,11 @@ export function EventModel(sequelize: Sequelize) {
         type: DataTypes.ENUM("free", "paid"),
         allowNull: false,
       },
-
+      status: {
+        type: DataTypes.ENUM("active", "Deactivate"),
+        allowNull: false,
+        defaultValue: "active",
+      },
       location: {
         type: DataTypes.STRING,
         allowNull: false,
