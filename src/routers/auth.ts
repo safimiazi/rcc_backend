@@ -8,7 +8,7 @@ const MakeRouter = new CreateRouter("/ui/auth");
 const app = MakeRouter.getApp();
 
 // mobile app api
-app.post("/login-nahid", AdminController.Login);
+app.post("/login", AdminController.Login);
 app.get("/is-admin-login", IsAdmin, (req, res) => {
   // @ts-ignore
   res.send(req.Admin);
