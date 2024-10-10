@@ -71,7 +71,7 @@ export const EventController = {
   // get event by id
   async getEventById(req, res, next) {
     try {
-      const Event = await EventService.GetEventByEventId(req.query.id);
+      const Event = await EventService.GetEventByEventId(req.params.id);
       res.send(Event);
     } catch (error) {
       next(error);
