@@ -1,12 +1,12 @@
 import { AdminController } from "@/controllers/admin/AdminController";
 import { EventController } from "@/controllers/Event/Event.controller";
+import path from "path";
 import IsAdmin from "@/middleware/auth/isAdmin";
 import getMulter from "@/middleware/multer/multer";
 import photoComposure from "@/middleware/multer/photoComposure";
 const des = path.join(__dirname, "..", "public/media/event");
-
 import CreateRouter from "@CreateRoute";
-import path from "path";
+
 
 // create registration route
 const MakeRouter = new CreateRouter("/ui/event");
@@ -18,7 +18,7 @@ app.post(
   IsAdmin,
   getMulter({
     destination: des,
-  }).single("photo"),
+  }).single("event_img"),
   photoComposure(des).single,
   EventController.CreateEvent
 );
