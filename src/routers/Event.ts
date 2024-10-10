@@ -30,7 +30,7 @@ app.post(
     destination: des,
   }).array("archive_img"),
   photoComposure(des).double,
-  EventController.CreateEvent
+  EventController.update_archive_image
 );
 
 app.get("/get_all_event_public", EventController.GetAllActiveEvents);
