@@ -40,7 +40,7 @@ export const AdminController = {
           },
           ENV.SECRET_KEY,
           {
-            expiresIn: "2d",
+            expiresIn: "5d",
           }
         );
         res.setHeader("Set-Cookie", [
