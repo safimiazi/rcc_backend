@@ -1,11 +1,12 @@
 import { ENV } from "@config/env";
+
 import { logger } from "@utility/logger";
 import { Sequelize, HasMany, Transaction } from "sequelize";
 
 import { log } from "console";
 import { AdminI, AdminModel } from "./model/Admin";
 import { EventModel } from "./model/Event";
-const LogQuery = false;
+const LogQuery = true;
 
 const sequelize = new Sequelize({
   dialect: "mysql",
