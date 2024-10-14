@@ -13,9 +13,8 @@ export const EventController = {
         ...JSON.parse(req.body.data),
         event_image: opt ? opt : "no",
         event_img: opt ? opt : "no",
+        faqs: JSON.parse(req.body).faqs ? JSON.parse(req.body).faqs : [],
       };
-
-      console.log("🚀 ~ CreateEvent ~ Payload:", Payload);
 
       const NewEvent = await EventService.CreateEvent(Payload);
       res.send(NewEvent);
