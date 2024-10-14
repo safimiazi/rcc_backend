@@ -4,8 +4,10 @@ import { logger } from "@utility/logger";
 import { Sequelize, HasMany, Transaction } from "sequelize";
 
 import { log } from "console";
-import { AdminI, AdminModel } from "./model/Admin";
+import { AdminModel } from "./model/Admin";
 import { EventModel } from "./model/Event";
+import { VideoModel } from "./model/Video";
+import { SermonsModel } from "./model/Sermons";
 const LogQuery = true;
 
 const sequelize = new Sequelize({
@@ -39,6 +41,8 @@ const sequelize = new Sequelize({
 sequelize.authenticate();
 const Admin = AdminModel(sequelize);
 const Event = EventModel(sequelize);
+const Video = VideoModel(sequelize);
+const Sermons = SermonsModel(sequelize);
 
 // FundTransfer > to account
 
@@ -46,4 +50,6 @@ export const db = {
   sequelize,
   Admin,
   Event,
+  Video,
+  Sermons
 } as const;

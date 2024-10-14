@@ -121,6 +121,7 @@ export function EventModel(sequelize: Sequelize) {
           }
           this.setDataValue("faqs", JSON.stringify(value));
         },
+        
       },
     },
     {
