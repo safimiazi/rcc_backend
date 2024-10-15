@@ -7,10 +7,10 @@ export const VideoController = {
   async CreateVideo(req, res, next) {
     try {
       const { file } = req;
+      console.log("🚀 ~ CreateVideo ~ file:", file)
       const opt = file ? file.opt : null;
-
       const NewVideo = await db.Video.create({
-        ...req.body.data,
+        ...JSON.parse(req.body.data),
         thumbnail: opt || null,
       });
 
@@ -18,9 +18,9 @@ export const VideoController = {
     } catch (error) {
       // if any error occurs then delete uploaded file
       const { file } = req;
-      const opt = file ? file.path : null;
-      if (opt) {
-        await unlinkSync(opt + ".webp");
+      const path = file ? file.path : null;
+      if (path) {
+        await unlinkSync(path + ".webp");
       }
       next(error);
     }
