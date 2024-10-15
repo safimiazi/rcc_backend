@@ -1,5 +1,7 @@
 import { db } from "@/database";
-import { unlinkSync } from "fs";
+import { errorCreate } from "@/middleware/errorHandler";
+import { existsSync, unlinkSync } from "fs";
+import path from "path";
 
 export const SermonsController = {
   async CreateSermons(req, res, next) {
@@ -46,18 +48,44 @@ export const SermonsController = {
   },
   async UpdateSermonsData(req, res, next) {
     try {
-      const update = await db.Sermons.update(
-        {
-          ...req.body.data,
+      const { file } = req;
+      const opt = file ? file.opt : null;
+      const sermonsData = await db.Sermons.findOne({
+        where: {
+          id: req.body.id,
         },
-        {
-          where: {
-            id: req.body.id,
-          },
-        }
-      );
+      });
 
-      res.send(update);
+      if (!sermonsData) {
+        const path_file = file ? file.path : null;
+        if (path_file) {
+          await unlinkSync(path_file + ".webp");
+        }
+        return errorCreate(404, "Video not found !");
+      }
+
+      if (opt) {
+        const destination = file ? file.destination : null;
+        const thumbnailPath = destination
+          ? path.join(destination, sermonsData.toJSON().thumbnail)
+          : null;
+
+        if (thumbnailPath && existsSync(thumbnailPath)) {
+          try {
+            await unlinkSync(thumbnailPath);
+          } catch (err) {
+            console.error("Error deleting the file:", err);
+          }
+        }
+      }
+
+      const update = await sermonsData.update({
+        ...JSON.parse(req.body.data),
+        thumbnail: opt,
+      });
+      res.send({
+        update: update,
+      });
     } catch (error) {
       next(error);
     }

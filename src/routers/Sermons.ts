@@ -24,7 +24,15 @@ app.get("/getDataAdmin", IsAdmin, SermonsController.GetSermonsDataAdmin);
 
 app.get("/getData", SermonsController.GetSermonsData);
 
-app.post("/update", IsAdmin, SermonsController.UpdateSermonsData);
+app.post(
+  "/update",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("thumbnail"),
+  photoComposure(des).single,
+  SermonsController.UpdateSermonsData
+);
 app.post("/delete", IsAdmin, SermonsController.DeleteSermonsData);
 
 export default MakeRouter;
