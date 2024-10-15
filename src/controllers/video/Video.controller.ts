@@ -7,7 +7,7 @@ export const VideoController = {
   async CreateVideo(req, res, next) {
     try {
       const { file } = req;
-      console.log("🚀 ~ CreateVideo ~ file:", file)
+      console.log("🚀 ~ CreateVideo ~ file:", file);
       const opt = file ? file.opt : null;
       const NewVideo = await db.Video.create({
         ...JSON.parse(req.body.data),
@@ -64,7 +64,7 @@ export const VideoController = {
         if (path_file) {
           await unlinkSync(path_file + ".webp");
         }
-        return errorCreate(404, "Video not found !");
+        throw errorCreate(404, "Video not found !");
       }
 
       const update = await videoData.update({
@@ -100,6 +100,35 @@ export const VideoController = {
   },
   async DeleteVideoData(req, res, next) {
     try {
+      const VideoData = await db.Video.findOne({
+        where: {
+          id: req.body.id,
+        },
+      });
+
+      if (!VideoData) {
+        throw errorCreate(404, "Video not found");
+      }
+
+      const destination = path.join(
+        __dirname,
+        "..",
+        "..",
+        "public/media/thumbnail"
+      );
+
+      const thumbnailPath = destination
+        ? path.join(destination, VideoData.toJSON().thumbnail)
+        : null;
+
+      if (thumbnailPath && existsSync(thumbnailPath)) {
+        try {
+          await unlinkSync(thumbnailPath);
+        } catch (err) {
+          console.error("Error deleting the file:", err);
+        }
+      }
+
       const deleteVideo = await db.Video.destroy({
         where: {
           id: req.body.id,
