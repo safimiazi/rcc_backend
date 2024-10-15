@@ -14,6 +14,7 @@ export interface VideoI
   video_url: string;
   video_date: Date;
   video_category: string;
+  thumbnail: string;
   status: "active" | "Deactivate";
   createdAt?: Date;
   updatedAt?: Date;
@@ -41,6 +42,10 @@ export function VideoModel(sequelize: Sequelize) {
     video_category: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    thumbnail: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     status: {
       type: DataTypes.ENUM("active", "Deactivate"),

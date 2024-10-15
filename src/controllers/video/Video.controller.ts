@@ -1,11 +1,25 @@
 import { db } from "@/database";
+import { unlinkSync } from "fs";
 
 export const VideoController = {
   async CreateVideo(req, res, next) {
     try {
-      const NewVideo = await db.Video.create(req.body);
+      const { file } = req;
+      const opt = file ? file.opt : null;
+
+      const NewVideo = await db.Video.create({
+        ...req.body.data,
+        thumbnail: opt || null,
+      });
+
       res.send(NewVideo);
     } catch (error) {
+      // if any error occurs then delete uploaded file
+      const { file } = req;
+      const opt = file ? file.path : null;
+      if (opt) {
+        await unlinkSync(opt + ".webp");
+      }
       next(error);
     }
   },
@@ -60,10 +74,10 @@ export const VideoController = {
 
       res.send({
         success: true,
-        data: deleteVideo
+        data: deleteVideo,
       });
     } catch (error) {
       next(error);
     }
-  }
+  },
 };

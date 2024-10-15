@@ -14,6 +14,7 @@ export interface SermonsI
   sermons_url: string;
   sermons_date: Date;
   sermons_category: string;
+  thumbnail: string;
   status: "active" | "Deactivate";
   createdAt?: Date;
   updatedAt?: Date;
@@ -41,6 +42,10 @@ export function SermonsModel(sequelize: Sequelize) {
     sermons_category: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    thumbnail: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     status: {
       type: DataTypes.ENUM("active", "Deactivate"),
