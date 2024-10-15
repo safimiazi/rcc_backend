@@ -1,11 +1,23 @@
 import { db } from "@/database";
+import { unlinkSync } from "fs";
 
 export const SermonsController = {
   async CreateSermons(req, res, next) {
     try {
-      const NewSermons = await db.Sermons.create(req.body);
+      const { file } = req;
+      const opt = file ? file.opt : null;
+
+      const NewSermons = await db.Sermons.create({
+        ...JSON.parse(req.body.data),
+        thumbnail: opt || null,
+      });
       res.send(NewSermons);
     } catch (error) {
+      const { file } = req;
+      const path = file ? file.path : null;
+      if (path) {
+        await unlinkSync(path + ".webp");
+      }
       next(error);
     }
   },
