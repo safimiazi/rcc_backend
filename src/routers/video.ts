@@ -23,7 +23,15 @@ app.get("/getDataAdmin", IsAdmin, VideoController.GetVideoDataAdmin);
 
 app.get("/getData", VideoController.GetVideoData);
 
-app.post("/update", IsAdmin, VideoController.UpdateVideoData);
+app.post(
+  "/update",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("thumbnail"),
+  photoComposure(des).single,
+  VideoController.UpdateVideoData
+);
 app.post("/delete", IsAdmin, VideoController.DeleteVideoData);
 
 export default MakeRouter;
