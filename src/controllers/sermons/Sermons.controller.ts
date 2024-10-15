@@ -92,7 +92,36 @@ export const SermonsController = {
   },
   async DeleteSermonsData(req, res, next) {
     try {
-      const deleteSermons = await db.Sermons.destroy({
+      const SermonsData = await db.Sermons.findOne({
+        where: {
+          id: req.body.id,
+        },
+      });
+
+      if (!SermonsData) {
+        throw errorCreate(404, "Video not found");
+      }
+
+      const destination = path.join(
+        __dirname,
+        "..",
+        "..",
+        "public/media/thumbnail"
+      );
+
+      const thumbnailPath = destination
+        ? path.join(destination, SermonsData.toJSON().thumbnail)
+        : null;
+
+      if (thumbnailPath && existsSync(thumbnailPath)) {
+        try {
+          await unlinkSync(thumbnailPath);
+        } catch (err) {
+          console.error("Error deleting the file:", err);
+        }
+      }
+
+      const deleteVideo = await db.Sermons.destroy({
         where: {
           id: req.body.id,
         },
@@ -100,7 +129,7 @@ export const SermonsController = {
 
       res.send({
         success: true,
-        data: deleteSermons,
+        data: deleteVideo,
       });
     } catch (error) {
       next(error);
