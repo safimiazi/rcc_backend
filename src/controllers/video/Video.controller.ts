@@ -1,5 +1,7 @@
 import { db } from "@/database";
-import { unlinkSync } from "fs";
+import { errorCreate } from "@/middleware/errorHandler";
+import { existsSync, unlinkSync } from "fs";
+import path from "path";
 
 export const VideoController = {
   async CreateVideo(req, res, next) {
@@ -48,19 +50,51 @@ export const VideoController = {
   },
   async UpdateVideoData(req, res, next) {
     try {
-      const update = await db.Video.update(
-        {
-          ...req.body.data,
-        },
-        {
-          where: {
-            id: req.body.id,
-          },
-        }
-      );
+      const { file } = req;
+      const opt = file ? file.opt : null;
 
-      res.send(update);
+      const videoData = await db.Video.findOne({
+        where: {
+          id: req.body.id,
+        },
+      });
+
+      if (!videoData) {
+        const path_file = file ? file.path : null;
+        if (path_file) {
+          await unlinkSync(path_file + ".webp");
+        }
+        return errorCreate(404, "Video not found !");
+      }
+
+      const update = await videoData.update({
+        ...JSON.parse(req.body.data),
+        thumbnail: opt,
+      });
+
+      const destination = file ? file.destination : null;
+      const thumbnailPath = destination
+        ? path.join(destination, videoData.toJSON().thumbnail)
+        : null;
+
+      if (thumbnailPath && existsSync(thumbnailPath)) {
+        try {
+          await unlinkSync(thumbnailPath);
+        } catch (err) {
+          console.error("Error deleting the file:", err);
+        }
+      }
+
+      res.send({
+        update: update,
+      });
     } catch (error) {
+      // if any error occurs then delete uploaded file
+      const { file } = req;
+      const path_file = file ? file.path : null;
+      if (path_file) {
+        await unlinkSync(path_file + ".webp");
+      }
       next(error);
     }
   },
