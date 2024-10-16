@@ -1,9 +1,9 @@
+import path from "path";
 import { SermonsController } from "@/controllers/sermons/Sermons.controller";
 import IsAdmin from "@/middleware/auth/isAdmin";
 import getMulter from "@/middleware/multer/multer";
 import photoComposure from "@/middleware/multer/photoComposure";
 import CreateRouter from "@/utility/CreateRouter";
-import path from "path";
 
 // create registration route
 const MakeRouter = new CreateRouter("/ui/sermons");

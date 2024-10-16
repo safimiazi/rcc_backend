@@ -4,10 +4,10 @@ import morgan from "morgan";
 import cors from "cors";
 import hpp from "hpp";
 import helmet from "helmet";
+import path from "path";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import fs from "fs";
-import path from "path";
 import createError from "http-errors";
 
 import { logger, stream } from "@utility/logger";

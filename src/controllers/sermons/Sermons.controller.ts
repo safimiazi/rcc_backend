@@ -1,7 +1,7 @@
+import path from "path";
 import { db } from "@/database";
 import { errorCreate } from "@/middleware/errorHandler";
 import { existsSync, unlinkSync } from "fs";
-import path from "path";
 
 export const SermonsController = {
   async CreateSermons(req, res, next) {
@@ -87,6 +87,7 @@ export const SermonsController = {
         update: update,
       });
     } catch (error) {
+      console.log("🚀 ~ UpdateSermonsData ~ error:", error)
       next(error);
     }
   },
@@ -132,6 +133,7 @@ export const SermonsController = {
         data: deleteVideo,
       });
     } catch (error) {
+      console.log("🚀 ~ DeleteSermonsData ~ error:", error)
       next(error);
     }
   },
