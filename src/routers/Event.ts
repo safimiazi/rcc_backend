@@ -1,6 +1,6 @@
+import path from "path";
 import { AdminController } from "@/controllers/admin/AdminController";
 import { EventController } from "@/controllers/Event/Event.controller";
-import path from "path";
 import IsAdmin from "@/middleware/auth/isAdmin";
 import getMulter from "@/middleware/multer/multer";
 import photoComposure from "@/middleware/multer/photoComposure";
