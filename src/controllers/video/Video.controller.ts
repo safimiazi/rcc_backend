@@ -67,23 +67,27 @@ export const VideoController = {
         throw errorCreate(404, "Video not found !");
       }
 
+      
+
+      if(opt){
+        const destination = file ? file.destination : null;
+        const thumbnailPath = destination
+        ? path.join(destination, videoData.toJSON().thumbnail)
+        : null;
+        
+        if (thumbnailPath && existsSync(thumbnailPath)) {
+          try {
+            await unlinkSync(thumbnailPath);
+          } catch (err) {
+            console.error("Error deleting the file:", err);
+          }
+        }
+      }
+
       const update = await videoData.update({
         ...JSON.parse(req.body.data),
         thumbnail: opt,
       });
-
-      const destination = file ? file.destination : null;
-      const thumbnailPath = destination
-        ? path.join(destination, videoData.toJSON().thumbnail)
-        : null;
-
-      if (thumbnailPath && existsSync(thumbnailPath)) {
-        try {
-          await unlinkSync(thumbnailPath);
-        } catch (err) {
-          console.error("Error deleting the file:", err);
-        }
-      }
 
       res.send({
         update: update,
