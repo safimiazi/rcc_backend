@@ -7,7 +7,7 @@ export const VideoController = {
   async CreateVideo(req, res, next) {
     try {
       const { file } = req;
-      console.log("🚀 ~ CreateVideo ~ file:", file);
+
       const opt = file ? file.opt : null;
       const NewVideo = await db.Video.create({
         ...JSON.parse(req.body.data),
@@ -67,7 +67,7 @@ export const VideoController = {
         throw errorCreate(404, "Video not found !");
       }
 
-      if (opt) {
+      if (opt && videoData.toJSON().thumbnail) {
         const destination = file ? file.destination : null;
         const thumbnailPath = destination
           ? path.join(destination, videoData.toJSON().thumbnail)

@@ -7,15 +7,24 @@ import path from "path";
 export const EventController = {
   async CreateEvent(req, res, next) {
     try {
-      //upload the photo use multer
       const { file } = req;
-      const opt = file ? file.opt : null;
+      const opt = file?.opt || null;
+
+      let parsedData;
+      let parsedFaqs;
+
+      try {
+        parsedData = JSON.parse(req.body.data);
+        parsedFaqs = req.body.faqs ? JSON.parse(req.body.faqs) : [];
+      } catch (parseError) {
+        return next(errorCreate(400, "Invalid JSON in request body"));
+      }
 
       const Payload = {
-        ...JSON.parse(req.body.data),
-        event_image: opt ? opt : "no",
-        event_img: opt ? opt : "no",
-        faqs: JSON.parse(req.body).faqs ? JSON.parse(req.body).faqs : [],
+        ...parsedData,
+        event_image: opt || "no",
+        event_img: opt || "no",
+        faqs: parsedFaqs,
       };
 
       const NewEvent = await EventService.CreateEvent(Payload);
@@ -23,10 +32,15 @@ export const EventController = {
     } catch (error) {
       // if any error occurs then delete uploaded file
       const { file } = req;
-      const opt = file ? file.path : null;
+      const opt = file?.path || null;
       if (opt) {
-        await unlinkSync(opt + ".webp");
+        try {
+          await unlinkSync(opt + ".webp");
+        } catch (unlinkError) {
+          console.error("Error deleting file:", unlinkError);
+        }
       }
+      console.log("🚀 ~ CreateEvent ~ error:", error);
       next(error);
     }
   },

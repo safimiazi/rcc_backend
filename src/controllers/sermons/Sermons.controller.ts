@@ -64,7 +64,7 @@ export const SermonsController = {
         return errorCreate(404, "Video not found !");
       }
 
-      if (opt) {
+      if (opt && sermonsData.toJSON().thumbnail) {
         const destination = file ? file.destination : null;
         const thumbnailPath = destination
           ? path.join(destination, sermonsData.toJSON().thumbnail)

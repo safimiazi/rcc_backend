@@ -8,6 +8,7 @@ import { AdminModel } from "./model/Admin";
 import { EventModel } from "./model/Event";
 import { VideoModel } from "./model/Video";
 import { SermonsModel } from "./model/Sermons";
+import { EventUserModel } from "./model/EventUser";
 const LogQuery = false;
 
 const sequelize = new Sequelize({
@@ -43,8 +44,19 @@ const Admin = AdminModel(sequelize);
 const Event = EventModel(sequelize);
 const Video = VideoModel(sequelize);
 const Sermons = SermonsModel(sequelize);
+const EventUser = EventUserModel(sequelize);
 
-// FundTransfer > to account
+Event.hasMany(EventUser, {
+  foreignKey: "event_id",
+  as: "event_users",
+  onDelete: "CASCADE",
+});
+
+EventUser.belongsTo(Event, {
+  foreignKey: "event_id",
+  as: "event",
+  onDelete: "CASCADE",
+});
 
 export const db = {
   sequelize,
@@ -52,4 +64,5 @@ export const db = {
   Event,
   Video,
   Sermons,
+  EventUser,
 } as const;
