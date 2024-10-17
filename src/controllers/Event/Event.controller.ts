@@ -27,6 +27,8 @@ export const EventController = {
         faqs: parsedFaqs,
       };
 
+      console.log(JSON.parse(req.body.data));
+
       const NewEvent = await EventService.CreateEvent(Payload);
       res.send(NewEvent);
     } catch (error) {
