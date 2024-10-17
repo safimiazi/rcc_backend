@@ -87,7 +87,7 @@ export const SermonsController = {
         update: update,
       });
     } catch (error) {
-      console.log("🚀 ~ UpdateSermonsData ~ error:", error)
+      console.log("🚀 ~ UpdateSermonsData ~ error:", error);
       next(error);
     }
   },
@@ -109,16 +109,17 @@ export const SermonsController = {
         "..",
         "public/media/thumbnail"
       );
+      if (SermonsData.toJSON().thumbnail) {
+        const thumbnailPath = destination
+          ? path.join(destination, SermonsData.toJSON().thumbnail)
+          : null;
 
-      const thumbnailPath = destination
-        ? path.join(destination, SermonsData.toJSON().thumbnail)
-        : null;
-
-      if (thumbnailPath && existsSync(thumbnailPath)) {
-        try {
-          await unlinkSync(thumbnailPath);
-        } catch (err) {
-          console.error("Error deleting the file:", err);
+        if (thumbnailPath && existsSync(thumbnailPath)) {
+          try {
+            await unlinkSync(thumbnailPath);
+          } catch (err) {
+            console.error("Error deleting the file:", err);
+          }
         }
       }
 
@@ -133,7 +134,7 @@ export const SermonsController = {
         data: deleteVideo,
       });
     } catch (error) {
-      console.log("🚀 ~ DeleteSermonsData ~ error:", error)
+      console.log("🚀 ~ DeleteSermonsData ~ error:", error);
       next(error);
     }
   },

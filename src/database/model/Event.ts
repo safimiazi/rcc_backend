@@ -25,6 +25,7 @@ export interface EventI
   location: string;
   description: string;
   faqs: Object;
+  fee: string;
   status: "active" | "Deactivate";
   createdAt?: Date;
   updatedAt?: Date;
@@ -82,6 +83,10 @@ export function EventModel(sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      fee: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       description: {
         type: DataTypes.TEXT("long"),
         allowNull: false,
@@ -121,7 +126,6 @@ export function EventModel(sequelize: Sequelize) {
           }
           this.setDataValue("faqs", JSON.stringify(value));
         },
-        
       },
     },
     {

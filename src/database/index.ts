@@ -8,7 +8,7 @@ import { AdminModel } from "./model/Admin";
 import { EventModel } from "./model/Event";
 import { VideoModel } from "./model/Video";
 import { SermonsModel } from "./model/Sermons";
-const LogQuery = true;
+const LogQuery = false;
 
 const sequelize = new Sequelize({
   dialect: "mysql",
@@ -51,5 +51,5 @@ export const db = {
   Admin,
   Event,
   Video,
-  Sermons
+  Sermons,
 } as const;

@@ -67,14 +67,12 @@ export const VideoController = {
         throw errorCreate(404, "Video not found !");
       }
 
-      
-
-      if(opt){
+      if (opt) {
         const destination = file ? file.destination : null;
         const thumbnailPath = destination
-        ? path.join(destination, videoData.toJSON().thumbnail)
-        : null;
-        
+          ? path.join(destination, videoData.toJSON().thumbnail)
+          : null;
+
         if (thumbnailPath && existsSync(thumbnailPath)) {
           try {
             await unlinkSync(thumbnailPath);
@@ -114,22 +112,24 @@ export const VideoController = {
         throw errorCreate(404, "Video not found");
       }
 
-      const destination = path.join(
-        __dirname,
-        "..",
-        "..",
-        "public/media/thumbnail"
-      );
+      if (VideoData.toJSON().thumbnail) {
+        const destination = path.join(
+          __dirname,
+          "..",
+          "..",
+          "public/media/thumbnail"
+        );
 
-      const thumbnailPath = destination
-        ? path.join(destination, VideoData.toJSON().thumbnail)
-        : null;
+        const thumbnailPath = destination
+          ? path.join(destination, VideoData.toJSON().thumbnail)
+          : null;
 
-      if (thumbnailPath && existsSync(thumbnailPath)) {
-        try {
-          await unlinkSync(thumbnailPath);
-        } catch (err) {
-          console.error("Error deleting the file:", err);
+        if (thumbnailPath && existsSync(thumbnailPath)) {
+          try {
+            await unlinkSync(thumbnailPath);
+          } catch (err) {
+            console.error("Error deleting the file:", err);
+          }
         }
       }
 
