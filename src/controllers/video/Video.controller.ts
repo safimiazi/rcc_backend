@@ -129,11 +129,7 @@ export const VideoController = {
         }
       }
 
-      const deleteVideo = await db.Video.destroy({
-        where: {
-          id: req.body.id,
-        },
-      });
+      const deleteVideo = await VideoData.destroy();
 
       res.send({
         success: true,
