@@ -18,6 +18,8 @@ export const EventController = {
         faqs: JSON.parse(req.body).faqs ? JSON.parse(req.body).faqs : [],
       };
 
+      console.log(JSON.parse(req.body.data));
+
       const NewEvent = await EventService.CreateEvent(Payload);
       res.send(NewEvent);
     } catch (error) {
