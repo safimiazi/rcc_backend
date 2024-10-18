@@ -34,7 +34,12 @@ app.use(helmet.referrerPolicy({ policy: "strict-origin-when-cross-origin" }));
 // Enable CORS for specific origin
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"], // Ensure this matches your frontend URL
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "https://rccgjhs.com",
+      "https://www.rccgjhs.com",
+    ], // Ensure this matches your frontend URL
     credentials: true, // If you are sending cookies or authorization headers
   })
 );
