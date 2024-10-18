@@ -19,8 +19,8 @@ export interface EventI
   end_time: Date;
   language: string;
   category: string;
-  event_image: string;
-  archive_images: Object;
+  event_image?: string;
+  archive_images?: Object;
   entrance: "free" | "paid";
   location: string;
   description: string;
