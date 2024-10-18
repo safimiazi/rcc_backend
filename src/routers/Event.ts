@@ -6,7 +6,7 @@ import getMulter from "@/middleware/multer/multer";
 import photoComposure from "@/middleware/multer/photoComposure";
 const des = path.join(__dirname, "..", "public/media/event");
 import CreateRouter from "@CreateRoute";
-
+import { EventRegistration } from "@/controllers/Event/EventRegistration.controller";
 
 // create registration route
 const MakeRouter = new CreateRouter("/ui/event");
@@ -38,5 +38,7 @@ app.get("/get_all_event_public", EventController.GetAllActiveEvents);
 app.get("/get_all_event_admin", IsAdmin, EventController.getAllEvents);
 
 app.get("/get_event_by_id/:id", EventController.getEventById);
+
+app.post("/event-registration", EventRegistration.EventRegistration);
 
 export default MakeRouter;

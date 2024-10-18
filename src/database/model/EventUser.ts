@@ -18,6 +18,8 @@ export interface EventUserI
   last_name: string;
   email: string;
   phone: string;
+  payment_status: "pending" | "paid" | "failed";
+  payment_id?: string;
   event_id?: ForeignKey<string>;
   createdAt?: Date;
   updatedAt?: Date;
@@ -46,6 +48,15 @@ export function EventUserModel(sequelize: Sequelize) {
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    payment_status: {
+      type: DataTypes.ENUM("pending", "paid", "failed"),
+      allowNull: false,
+      defaultValue: "pending",
+    },
+    payment_id: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   });
 }

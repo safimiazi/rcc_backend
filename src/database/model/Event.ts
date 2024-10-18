@@ -26,7 +26,9 @@ export interface EventI
   description: string;
   faqs: Object;
   fee: string;
+  currency: "USD" | "EUR" | "CAD";
   status: "active" | "Deactivate";
+  registration_end_date: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -44,7 +46,6 @@ export function EventModel(sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
       start_time: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -65,7 +66,6 @@ export function EventModel(sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: true,
       },
-
       event_date: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -79,6 +79,11 @@ export function EventModel(sequelize: Sequelize) {
         allowNull: false,
         defaultValue: "active",
       },
+      currency: {
+        type: DataTypes.ENUM("USD", "EUR", "CAD"),
+        allowNull: false,
+        defaultValue: "CAD",
+      },
       location: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -87,11 +92,14 @@ export function EventModel(sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      registration_end_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
       description: {
         type: DataTypes.TEXT("long"),
         allowNull: false,
       },
-
       archive_images: {
         type: DataTypes.JSON,
         get() {
