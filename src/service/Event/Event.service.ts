@@ -17,7 +17,14 @@ export const EventService = {
   },
   async GetAllEventAdmin() {
     try {
-      return await db.Event.findAll();
+      return await db.Event.findAll({
+        include: [
+          {
+            model: db.EventUser,
+            as: "event_users",
+          },
+        ],
+      });
     } catch (error) {
       throw error;
     }
@@ -28,6 +35,12 @@ export const EventService = {
         where: {
           id: eventId,
         },
+        include: [
+          {
+            model: db.EventUser,
+            as: "event_users",
+          },
+        ],
       });
       return Event;
     } catch (error) {
