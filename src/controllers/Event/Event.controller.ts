@@ -112,15 +112,17 @@ export const EventController = {
         "public/media/event"
       );
 
-      const event_imagePath = destination
-        ? path.join(destination, EventData.toJSON().event_image)
-        : null;
+      if (EventData.toJSON().event_image) {
+        const event_imagePath = destination
+          ? path.join(destination, EventData.toJSON().event_image)
+          : null;
 
-      if (event_imagePath && existsSync(event_imagePath)) {
-        try {
-          await unlinkSync(event_imagePath);
-        } catch (err) {
-          console.error("Error deleting the file:", err);
+        if (event_imagePath && existsSync(event_imagePath)) {
+          try {
+            await unlinkSync(event_imagePath);
+          } catch (err) {
+            console.error("Error deleting the file:", err);
+          }
         }
       }
       // @ts-expect-error skip

@@ -38,6 +38,7 @@ app.get("/get_all_event_public", EventController.GetAllActiveEvents);
 app.get("/get_all_event_admin", IsAdmin, EventController.getAllEvents);
 
 app.get("/get_event_by_id/:id", EventController.getEventById);
+app.post("/event-delete", IsAdmin, EventController.EventDelete);
 
 app.post("/event-registration", EventRegistration.EventRegistration);
 
