@@ -7,12 +7,12 @@ import jwt from "jsonwebtoken";
 import cookie from "cookie";
 import { create } from "domain";
 import { existsSync, unlinkSync } from "fs";
+import { db } from "@/database";
 
 export const AdminController = {
   async Login(req, res, next) {
     try {
       const { email, password } = req.body;
-      console.log("🚀 ~ Login ~ req.body:", req.body)
       if (!email || !password) {
         throw errorCreate(406, "Please enter a The Credentials !");
       }
@@ -231,7 +231,17 @@ export const AdminController = {
       const AllAdmin = await adminService.GetAllAdmin();
       res.send(AllAdmin);
     } catch (error) {
-      console.log("🚀 ~ GetAllAdmin ~ error:", error);
+      next(error);
+    }
+  },
+  async GetAdminById(req, res, next) {
+    try {
+      const Admin = await db.Admin.findOne({
+        where: {
+          id: req.body.id,
+        },
+      });
+    } catch (error) {
       next(error);
     }
   },
