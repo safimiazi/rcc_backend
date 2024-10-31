@@ -16,7 +16,7 @@ export const EventController = {
 
       try {
         parsedData = JSON.parse(req.body.data);
-        parsedFaqs = req.body.faqs ? JSON.parse(req.body.faqs) : [];
+        parsedFaqs = parsedData.faqs ? JSON.parse(parsedData.faqs) : [];
       } catch (parseError) {
         return next(errorCreate(400, "Invalid JSON in request body"));
       }
