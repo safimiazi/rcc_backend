@@ -42,14 +42,15 @@ app.post("/event-delete", IsAdmin, EventController.EventDelete);
 
 app.post("/event-registration", EventRegistration.EventRegistration);
 app.post("/event-update", IsAdmin, EventController.UpdateEventById);
+
 app.post(
-  "/update_archive_img",
+  "/update_thumbnail_img",
   IsAdmin,
   getMulter({
     destination: des,
-  }).array("event_img"),
+  }).single("event_img"),
   photoComposure(des).single,
-  EventController.update_archive_image
+  EventController.ChangeCoverPhoto
 );
 
 export default MakeRouter;

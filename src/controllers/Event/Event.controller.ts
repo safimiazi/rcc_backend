@@ -50,6 +50,7 @@ export const EventController = {
     try {
       const { file } = req;
       const opt = file?.opt || null;
+      console.log("🚀 ~ ChangeCoverPhoto ~ opt:", opt)
       // event_image
 
       const GetTheExistingCoverPhoto = await db.Event.findOne({
