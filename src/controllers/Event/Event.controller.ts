@@ -153,4 +153,18 @@ export const EventController = {
       next(error);
     }
   },
+
+  async UpdateEventById(req, res, next) {
+    try {
+      const body = req.body;
+      const UpdateEvent = await db.Event.update(body, {
+        where: {
+          id: body.id,
+        },
+      });
+      res.send(UpdateEvent);
+    } catch (error) {
+      next(error);
+    }
+  },
 };

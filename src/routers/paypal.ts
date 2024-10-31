@@ -29,5 +29,7 @@ app.get("/success", (req, res) => {
   console.log(req.query);
   res.send("Success");
 });
+// get order responses
+// localhost:3000/complete-order?token=4M961104L00542817&PayerID=9BNQKGCYPVG6J
 
 export default MakeRouter;

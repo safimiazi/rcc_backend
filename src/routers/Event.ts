@@ -41,5 +41,6 @@ app.get("/get_event_by_id/:id", EventController.getEventById);
 app.post("/event-delete", IsAdmin, EventController.EventDelete);
 
 app.post("/event-registration", EventRegistration.EventRegistration);
+app.post("/event-update", IsAdmin, EventController.UpdateEventById);
 
 export default MakeRouter;
