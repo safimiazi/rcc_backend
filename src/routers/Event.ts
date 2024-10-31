@@ -48,7 +48,7 @@ app.post(
   IsAdmin,
   getMulter({
     destination: des,
-  }).array("event_img"),
+  }).single("event_img"),
   photoComposure(des).single,
   EventController.ChangeCoverPhoto
 );
