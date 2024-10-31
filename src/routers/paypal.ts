@@ -30,6 +30,8 @@ app.get("/success", (req, res) => {
   res.send("Success");
 });
 // get order responses
-// localhost:3000/complete-order?token=4M961104L00542817&PayerID=9BNQKGCYPVG6J
+// localhost:3000/complete-order?token= 4M961104L00542817 &PayerID=9BNQKGCYPVG6J
+
+// sandbox.paypal.com/checkoutnow?token= 4M961104L00542817
 
 export default MakeRouter;

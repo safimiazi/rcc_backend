@@ -3,6 +3,7 @@ import { errorCreate } from "@/middleware/errorHandler";
 import { EventService } from "@/service/Event/Event.service";
 import { existsSync, unlinkSync } from "fs";
 import path from "path";
+const destination = path.join(__dirname, "..", "..", "public/media/event");
 
 export const EventController = {
   async CreateEvent(req, res, next) {
@@ -29,6 +30,57 @@ export const EventController = {
 
       const NewEvent = await EventService.CreateEvent(Payload);
       res.send(NewEvent);
+    } catch (error) {
+      // if any error occurs then delete uploaded file
+      const { file } = req;
+      const opt = file?.path || null;
+      if (opt) {
+        try {
+          await unlinkSync(opt + ".webp");
+        } catch (unlinkError) {
+          console.error("Error deleting file:", unlinkError);
+        }
+      }
+      console.log("🚀 ~ CreateEvent ~ error:", error);
+      next(error);
+    }
+  },
+
+  async ChangeCoverPhoto(req, res, next) {
+    try {
+      const { file } = req;
+      const opt = file?.opt || null;
+      // event_image
+
+      const GetTheExistingCoverPhoto = await db.Event.findOne({
+        where: {
+          id: req.body.id,
+        },
+      });
+      if (!GetTheExistingCoverPhoto) {
+        throw errorCreate(404, "Event not found in database");
+      }
+
+      const FileName = GetTheExistingCoverPhoto.toJSON().event_image;
+
+      if (FileName) {
+        const FilePath = path.join(destination, FileName);
+        if (existsSync(FilePath)) {
+          try {
+            await unlinkSync(FilePath);
+          } catch (err) {
+            console.error("Error deleting the file:", err);
+          }
+        }
+      }
+
+      // update the database
+
+      const updateRes = await GetTheExistingCoverPhoto.update({
+        event_image: opt,
+      });
+
+      res.send(updateRes);
     } catch (error) {
       // if any error occurs then delete uploaded file
       const { file } = req;
@@ -105,12 +157,12 @@ export const EventController = {
         throw errorCreate(404, "Event not found !");
       }
 
-      const destination = path.join(
-        __dirname,
-        "..",
-        "..",
-        "public/media/event"
-      );
+      // const destination = path.join(
+      //   __dirname,
+      //   "..",
+      //   "..",
+      //   "public/media/event"
+      // );
 
       if (EventData.toJSON().event_image) {
         const event_imagePath = destination
