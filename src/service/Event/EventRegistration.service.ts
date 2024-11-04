@@ -25,11 +25,13 @@ const EventRegistrationService = {
         quantity: 1,
         description: "Event Registration fee : " + Event.toJSON().event_name,
       });
+
       const eventUser = await db.EventUser.create({
         ...data,
         payment_status: "pending",
         payment_id: payment.paymentId,
       });
+
       return {
         url: payment.url,
         eventUser: eventUser,

@@ -34,6 +34,10 @@ app.post(
 );
 
 app.get("/get_all_event_public", EventController.GetAllActiveEvents);
+app.get(
+  "/get_all_event_public_with_date",
+  EventController.get_all_event_public_with_date
+);
 
 app.get("/get_all_event_admin", IsAdmin, EventController.getAllEvents);
 
