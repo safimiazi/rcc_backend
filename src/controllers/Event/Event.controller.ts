@@ -116,6 +116,33 @@ export const EventController = {
       next(error);
     }
   },
+  async add_archive_image(req, res, next) {
+    try {
+      const { files, body } = req;
+      const EventData = await db.Event.findOne({
+        where: {
+          id: body.id,
+        },
+      });
+
+      if (!EventData) {
+        errorCreate(404, "Event not found");
+      }
+      const oldData = EventData.toJSON().archive_images as unknown as string[];
+      const NewFile = files.length ? files.map((file) => file.opt) : [];
+      const UpdatedFile = [...oldData, ...NewFile];
+      const Update = await EventData.update({
+        archive_images: UpdatedFile,
+      });
+
+      res.send({
+        Update,
+        UpdatedFile,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
   // get all event active
   async GetAllActiveEvents(req, res, next) {
     try {

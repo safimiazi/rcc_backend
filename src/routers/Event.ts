@@ -54,5 +54,13 @@ app.post(
 );
 
 app.post("/delete-archive-image", IsAdmin, EventController.DeleteArchiveImage);
-
+app.post(
+  "/add_archive_img",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).array("archive_img"),
+  photoComposure(des).double,
+  EventController.add_archive_image
+);
 export default MakeRouter;
