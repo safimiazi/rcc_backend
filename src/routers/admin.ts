@@ -23,4 +23,6 @@ app.post("/create-admin", IsAdmin, AdminController.CreateAdmin);
 app.get("/get-all-admin", IsAdmin, AdminController.GetAllAdmin);
 app.get("/get-admin-by-id", IsAdmin, AdminController.GetAdminById);
 app.post("/update-admin-by-id", IsAdmin, AdminController.UpdateAdminUser);
+app.get("/logout", AdminController.Logout);
+app.post("/delete-admin-by-id", IsAdmin, AdminController.DeleteAdmin);
 export default MakeRouter;

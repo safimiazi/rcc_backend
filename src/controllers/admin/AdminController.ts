@@ -8,6 +8,7 @@ import cookie from "cookie";
 import { create } from "domain";
 import { existsSync, unlinkSync } from "fs";
 import { db } from "@/database";
+import { Request, Response, NextFunction } from "express";
 
 export const AdminController = {
   async Login(req, res, next) {
@@ -267,6 +268,20 @@ export const AdminController = {
       res.send({
         status: "Admin updated successfully",
       });
+    } catch (error) {
+      next(error);
+    }
+  },
+  async DeleteAdmin(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    // Implementation for deleting an admin by ID
+    const adminId = req.body.id; // Assuming the ID is sent in the request body
+    // Logic to delete the admin from the database
+    // ...
+    try {
     } catch (error) {
       next(error);
     }
