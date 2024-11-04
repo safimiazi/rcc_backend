@@ -4,14 +4,14 @@ import getMulter from "@/middleware/multer/multer";
 import photoComposure from "@/middleware/multer/photoComposure";
 
 import CreateRouter from "@CreateRoute";
-import path, { isAbsolute } from "path";
+import path from "path";
 const des = path.join(__dirname, "..", "public/media/admin_avatar");
 // create registration route
 const MakeRouter = new CreateRouter("/ui/admin");
 const app = MakeRouter.getApp();
 
 app.post(
-  "/update-photo",
+  "/update-admin-photo",
   IsAdmin,
   getMulter({
     destination: des,

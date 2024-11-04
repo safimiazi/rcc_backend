@@ -152,6 +152,15 @@ export const EventController = {
       next(error);
     }
   },
+  // get all event active
+  async get_all_event_public_with_date(req, res, next) {
+    try {
+      const events = await EventService.GetAllActivePublicWithDate();
+      res.send(events);
+    } catch (error) {
+      next(error);
+    }
+  },
   // get all events
   async getAllEvents(req, res, next) {
     try {

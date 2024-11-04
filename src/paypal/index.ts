@@ -55,6 +55,7 @@ export async function createPayPalPayment(
 
   return new Promise((resolve, reject) => {
     paypal.payment.create(create_payment_json, (error, payment) => {
+      console.log("🚀 ~ paypal.payment.create ~ payment:", payment);
       if (error) {
         reject(error);
       } else {

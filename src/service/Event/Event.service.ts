@@ -1,4 +1,5 @@
 import { db } from "@/database";
+import { Op } from "sequelize";
 
 export const EventService = {
   async CreateEvent(data) {
@@ -9,6 +10,20 @@ export const EventService = {
       return await db.Event.findAll({
         where: {
           status: "active",
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  },
+  async GetAllActivePublicWithDate() {
+    try {
+      return await db.Event.findAll({
+        where: {
+          status: "active",
+          event_date: {
+            [Op.gt]: new Date(),
+          },
         },
       });
     } catch (error) {

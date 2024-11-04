@@ -67,7 +67,7 @@ export function EventModel(sequelize: Sequelize) {
         allowNull: true,
       },
       event_date: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false,
       },
       entrance: {
