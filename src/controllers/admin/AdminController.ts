@@ -8,7 +8,8 @@ import cookie from "cookie";
 import { create } from "domain";
 import { existsSync, unlinkSync } from "fs";
 import { db } from "@/database";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, response } from "express";
+import path from "path";
 
 export const AdminController = {
   async Login(req, res, next) {
@@ -228,7 +229,6 @@ export const AdminController = {
     }
   },
   async GetAllAdmin(req, res, next) {
-
     const admin = req.Admin;
     try {
       const AllAdmin = await adminService.GetAllAdmin(admin);
@@ -282,11 +282,48 @@ export const AdminController = {
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    // Implementation for deleting an admin by ID
     const adminId = req.body.id; // Assuming the ID is sent in the request body
-    // Logic to delete the admin from the database
-    // ...
     try {
+      const adminExist = await db.Admin.findByPk(adminId);
+      if (!adminExist) {
+        throw errorCreate(404, "Admin not found");
+      }
+
+      const AdminPhoto = adminExist.toJSON().photo;
+
+      if (AdminPhoto && AdminPhoto !== "no.jpg") {
+        // Ensure we don't delete a default photo
+        const Destination = path.join(
+          __dirname,
+          "..",
+          "..",
+          "public/media/admin_avatar",
+          AdminPhoto // Correctly append the photo name to the path
+        );
+        if (existsSync(Destination)) {
+          try {
+            await unlinkSync(Destination);
+          } catch (err) {
+            console.error("Error deleting the file:", err);
+          }
+        }
+      }
+
+      try {
+        // delete the admin
+        const DeleteStatus = await adminExist.destroy();
+
+        res.send({
+          status: "delete",
+          response: DeleteStatus,
+        });
+      } catch (error) {
+        console.error("Error deleting admin:", error);
+        res.status(500).send({
+          status: "error",
+          message: "Failed to delete admin",
+        });
+      }
     } catch (error) {
       next(error);
     }
