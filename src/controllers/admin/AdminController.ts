@@ -238,7 +238,7 @@ export const AdminController = {
     try {
       const Admin = await db.Admin.findOne({
         where: {
-          id: req.body.id,
+          id: req.query.id,
         },
       });
     } catch (error) {
