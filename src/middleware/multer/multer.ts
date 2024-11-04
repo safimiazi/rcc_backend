@@ -7,6 +7,7 @@ function getMulter({
   regex = /jpeg|jpg|png/,
   images = "jpg, jpeg, png",
 }) {
+
   const storageEngine = multer.diskStorage({
     destination: destination,
     filename: (_, file, cb) => {

@@ -63,7 +63,7 @@ app.post(
   IsAdmin,
   getMulter({
     destination: des,
-  }).array("archive_img"),
+  }).array("img"),
   photoComposure(des).double,
   EventController.add_archive_image
 );
