@@ -245,4 +245,30 @@ export const AdminController = {
       next(error);
     }
   },
+  async UpdateAdminUser(req, res, next) {
+    try {
+      const { id, data } = req.body;
+      const Update = await db.Admin.update(
+        {
+          ...data,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+
+      // Check if the update was successful
+      if (Update[0] === 0) {
+        throw errorCreate(404, "Admin not found or no changes made");
+      }
+
+      res.send({
+        status: "Admin updated successfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
 };
