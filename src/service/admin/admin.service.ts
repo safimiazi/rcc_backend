@@ -2,9 +2,13 @@ import { db } from "@/database";
 import { Op } from "sequelize";
 
 export const adminService = {
-  async GetAllAdmin() {
+  async GetAllAdmin(admin: any) {
     try {
-      const AllAdmin = await db.Admin.findAll({});
+      const AllAdmin = await db.Admin.findAll({
+        where: {
+          [Op.not]: { id: admin.id },
+        },
+      });
 
       return AllAdmin;
     } catch (error) {
