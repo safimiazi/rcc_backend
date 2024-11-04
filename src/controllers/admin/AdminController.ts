@@ -227,8 +227,10 @@ export const AdminController = {
     }
   },
   async GetAllAdmin(req, res, next) {
+
+    const admin = req.Admin;
     try {
-      const AllAdmin = await adminService.GetAllAdmin();
+      const AllAdmin = await adminService.GetAllAdmin(admin);
       res.send(AllAdmin);
     } catch (error) {
       next(error);
@@ -248,16 +250,18 @@ export const AdminController = {
   async UpdateAdminUser(req, res, next) {
     try {
       const { id, data } = req.body;
-      const Update = await db.Admin.update(
-        {
-          ...data,
-        },
-        {
-          where: {
-            id,
-          },
-        }
-      );
+      const isExist = await db.Admin.findByPk(id);
+      if (!isExist) {
+        throw errorCreate(404, "Admin not found");
+      }
+
+      if (isExist.toJSON().email === data?.email) {
+        delete data.email;
+      }
+
+      const Update = await isExist.update({
+        ...data,
+      });
 
       // Check if the update was successful
       if (Update[0] === 0) {
@@ -268,6 +272,7 @@ export const AdminController = {
         status: "Admin updated successfully",
       });
     } catch (error) {
+      console.log("🚀 ~ UpdateAdminUser ~ error:", error);
       next(error);
     }
   },
