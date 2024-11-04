@@ -53,4 +53,6 @@ app.post(
   EventController.ChangeCoverPhoto
 );
 
+app.post("/delete-archive-image", IsAdmin, EventController.DeleteArchiveImage);
+
 export default MakeRouter;

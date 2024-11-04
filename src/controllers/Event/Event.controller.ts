@@ -50,14 +50,13 @@ export const EventController = {
     try {
       const { file } = req;
       const opt = file?.opt || null;
-      console.log("🚀 ~ ChangeCoverPhoto ~ opt:", opt)
-      // event_image
 
       const GetTheExistingCoverPhoto = await db.Event.findOne({
         where: {
           id: req.body.id,
         },
       });
+
       if (!GetTheExistingCoverPhoto) {
         throw errorCreate(404, "Event not found in database");
       }
@@ -216,6 +215,50 @@ export const EventController = {
         },
       });
       res.send(UpdateEvent);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async DeleteArchiveImage(req, res, next) {
+    try {
+      const { id, fileName } = req.body;
+      const EventInDb = await db.Event.findOne({
+        where: {
+          id: req.body.id,
+        },
+      });
+
+      if (!EventInDb) {
+        throw errorCreate(404, "Event not found in database");
+      }
+
+      //delete images from file
+
+      if (fileName) {
+        const FilePath = path.join(destination, fileName);
+        if (existsSync(FilePath)) {
+          try {
+            await unlinkSync(FilePath);
+          } catch (err) {
+            console.error("Error deleting the file:", err);
+          }
+        }
+      }
+
+      // update the database
+      const OldArray: string[] = EventInDb.toJSON()
+        .archive_images as unknown as string[];
+      const NewArray = OldArray.filter((e) => e !== fileName);
+
+      await EventInDb.update({
+        archive_images: NewArray,
+      });
+
+      res.send({
+        update: true,
+        new_archive: NewArray,
+      });
     } catch (error) {
       next(error);
     }
