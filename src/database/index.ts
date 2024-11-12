@@ -10,6 +10,7 @@ import { VideoModel } from "./model/Video";
 import { SermonsModel } from "./model/Sermons";
 import { EventUserModel } from "./model/EventUser";
 import { HomePageModel } from "./model/front_end/Home";
+import { AboutPageModel } from "./model/front_end/About";
 const LogQuery = false;
 
 const sequelize = new Sequelize({
@@ -48,6 +49,7 @@ const Sermons = SermonsModel(sequelize);
 const EventUser = EventUserModel(sequelize);
 // front-end page
 const HomePage = HomePageModel(sequelize);
+const AboutPage = AboutPageModel(sequelize);
 
 Event.hasMany(EventUser, {
   foreignKey: "event_id",
@@ -70,4 +72,5 @@ export const db = {
   EventUser,
   // frontend
   HomePage,
+  AboutPage,
 } as const;
