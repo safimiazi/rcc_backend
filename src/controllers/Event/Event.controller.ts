@@ -41,7 +41,7 @@ export const EventController = {
           console.error("Error deleting file:", unlinkError);
         }
       }
-      console.log("🚀 ~ CreateEvent ~ error:", error);
+
       next(error);
     }
   },
