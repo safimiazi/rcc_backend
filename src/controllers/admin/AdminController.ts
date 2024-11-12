@@ -282,8 +282,12 @@ export const AdminController = {
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    const adminId = req.body.id; // Assuming the ID is sent in the request body
+    const adminId: any = req?.query?.id; // Assuming the ID is sent in the request body
+    console.log("🚀 ~ adminId:", adminId)
     try {
+      if (!adminId) {
+        throw errorCreate(400, "Admin ID is required");
+      }
       const adminExist = await db.Admin.findByPk(adminId);
       if (!adminExist) {
         throw errorCreate(404, "Admin not found");
