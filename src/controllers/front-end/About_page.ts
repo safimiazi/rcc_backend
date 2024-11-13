@@ -268,4 +268,116 @@ export const AboutPageController = {
       next(error);
     }
   },
+  async CreateAboutMinisterial(req, res, next) {
+    try {
+      const { body, file } = req;
+      const opt = file?.opt || null;
+      const NewPastors = await db.AboutMinisterial.create({
+        designation: body.designation,
+        facebook: body.facebook,
+        instagram: body.instagram,
+        name: body.name,
+        photo: opt,
+        x: body.x,
+        youtube: body.youtube,
+      });
+      res.send(NewPastors);
+    } catch (error) {
+      // if any error occurs then delete uploaded file
+      const { file } = req;
+      const opt = file?.path || null;
+      if (opt) {
+        try {
+          await unlinkSync(opt + ".webp");
+        } catch (unlinkError) {
+          console.error("Error deleting file:", unlinkError);
+        }
+      }
+      next(error);
+    }
+  },
+  async UpdateAboutMinisterial(req, res, next) {
+    try {
+      const { body, file } = req;
+      const opt = file?.opt || null;
+      const current = await db.AboutMinisterial.findOne({
+        where: {
+          id: req.body.id,
+        },
+      });
+
+      if (!current) {
+        throw errorCreate(404, "Data not found");
+      }
+
+      const FileName = current.toJSON().photo;
+
+      if (FileName && opt) {
+        const FilePath = path.join(destination, FileName);
+        if (existsSync(FilePath)) {
+          try {
+            await unlinkSync(FilePath);
+          } catch (err) {
+            console.error("Error deleting the file:", err);
+          }
+        }
+      }
+
+      const NewPastors = await current.update({
+        designation: body.designation,
+        facebook: body.facebook,
+        instagram: body.instagram,
+        name: body.name,
+        photo: opt,
+        x: body.x,
+        youtube: body.youtube,
+      });
+      res.send(NewPastors);
+    } catch (error) {
+      // if any error occurs then delete uploaded file
+      const { file } = req;
+      const opt = file?.path || null;
+      if (opt) {
+        try {
+          await unlinkSync(opt + ".webp");
+        } catch (unlinkError) {
+          console.error("Error deleting file:", unlinkError);
+        }
+      }
+      next(error);
+    }
+  },
+  async DeleteAboutMinisterial(req, res, next) {
+    try {
+      const { body, file } = req;
+      const opt = file?.opt || null;
+      const current = await db.AboutMinisterial.findOne({
+        where: {
+          id: req.body.id,
+        },
+      });
+
+      if (!current) {
+        throw errorCreate(404, "Data not found");
+      }
+
+      const FileName = current.toJSON().photo;
+
+      if (FileName && opt) {
+        const FilePath = path.join(destination, FileName);
+        if (existsSync(FilePath)) {
+          try {
+            await unlinkSync(FilePath);
+          } catch (err) {
+            console.error("Error deleting the file:", err);
+          }
+        }
+      }
+
+      const NewPastors = await current.destroy();
+      res.send({ NewPastors });
+    } catch (error) {
+      next(error);
+    }
+  },
 };
