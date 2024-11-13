@@ -10,7 +10,6 @@ export const HomePageController = {
       const opt = file?.opt || null;
 
       const data = JSON.parse(body?.data);
-      console.log(data);
 
       const current = await db.HomePage.findOne();
       if (!current) {
