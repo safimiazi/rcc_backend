@@ -76,6 +76,31 @@ app.post(
   AboutPageController.UpdateAboutSeniorPastors
 );
 
+// About Ministerial
+app.post(
+  "/create-ministerial",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("photo"),
+  photoComposure(des).single,
+  AboutPageController.CreateAboutMinisterial
+);
+app.post(
+  "/update-ministerial",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("photo"),
+  photoComposure(des).single,
+  AboutPageController.UpdateAboutMinisterial
+);
+app.post(
+  "/delete-ministerial",
+  IsAdmin,
+  AboutPageController.UpdateAboutMinisterial
+);
+
 // get app //
 app.get("/get/:page", GetPageDataController.getPageData);
 
