@@ -30,19 +30,15 @@ export function AboutPageModel(sequelize: Sequelize) {
     },
     our_mission: {
       type: DataTypes.TEXT("long"),
-      allowNull: false,
     },
     our_roots: {
       type: DataTypes.TEXT("long"),
-      allowNull: false,
     },
     our_mission_pic: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     cover: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
   });
 }

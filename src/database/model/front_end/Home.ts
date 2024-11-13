@@ -33,31 +33,24 @@ export function HomePageModel(sequelize: Sequelize) {
     },
     titel: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     tag: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     des: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     value: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     involved: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     i_new: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     cover: {
       type: DataTypes.STRING,
-      allowNull: true,
     },
   });
 }
