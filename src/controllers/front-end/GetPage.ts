@@ -16,6 +16,10 @@ export const GetPageDataController = {
         // ... handle the condition
         const data = await db.AboutSeniorPastors.findAll();
         return res.send(data);
+      } else if (page === "ministerial_team") {
+        // ... handle the condition
+        const data = await db.AboutMinisterial.findAll();
+        return res.send(data);
       }
     } catch (error) {
       next(error);
