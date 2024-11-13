@@ -14,7 +14,9 @@ export interface AboutPageI
   > {
   id: CreationOptional<string>;
   our_mission: string;
+  our_value: string;
   our_roots: string;
+  our_roots_pic: string;
   our_mission_pic: string;
   cover: string;
   createdAt?: Date;
@@ -31,8 +33,14 @@ export function AboutPageModel(sequelize: Sequelize) {
     our_mission: {
       type: DataTypes.TEXT("long"),
     },
+    our_value: {
+      type: DataTypes.TEXT("long"),
+    },
     our_roots: {
       type: DataTypes.TEXT("long"),
+    },
+    our_roots_pic: {
+      type: DataTypes.STRING,
     },
     our_mission_pic: {
       type: DataTypes.STRING,

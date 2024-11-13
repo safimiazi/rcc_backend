@@ -11,7 +11,7 @@ import { SermonsModel } from "./model/Sermons";
 import { EventUserModel } from "./model/EventUser";
 import { HomePageModel } from "./model/front_end/Home";
 import { AboutPageModel } from "./model/front_end/About";
-const LogQuery = false;
+const LogQuery = true;
 
 const sequelize = new Sequelize({
   dialect: "mysql",

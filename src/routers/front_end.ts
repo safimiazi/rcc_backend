@@ -12,7 +12,7 @@ const des = path.join(__dirname, "..", "public/media/cover");
 const MakeRouter = new CreateRouter("/ui/front-end");
 const app = MakeRouter.getApp();
 
-// mobile app api //
+// Home //
 app.post(
   "/update-home",
   IsAdmin,
@@ -22,7 +22,7 @@ app.post(
   photoComposure(des).single,
   HomePageController.ChangeHomePage
 );
-//- hello //-
+//- About JHS//-
 app.post(
   "/update-about",
   IsAdmin,
@@ -30,6 +30,22 @@ app.post(
     destination: des,
   }).single("cover"),
   AboutPageController.ChangeAboutPage
+);
+app.post(
+  "/update-about-mission-pic",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("mission"),
+  AboutPageController.ChangeAboutMissionCover
+);
+app.post(
+  "/update-about-roots-pic",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("roots"),
+  AboutPageController.ChangeAboutRootCover
 );
 
 // get app //
