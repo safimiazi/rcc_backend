@@ -7,49 +7,49 @@ import {
   Sequelize,
 } from "sequelize";
 
-export interface HomePageI
+export interface AboutSeniorPastorsI
   extends Model<
-    InferAttributes<HomePageI>,
-    InferCreationAttributes<HomePageI>
+    InferAttributes<AboutSeniorPastorsI>,
+    InferCreationAttributes<AboutSeniorPastorsI>
   > {
   id: CreationOptional<string>;
-  titel: string;
-  tag: string;
+  name: string;
   des: string;
-  value: string;
-  involved: string;
-  i_new: string;
-  cover: string;
+  facebook: string;
+  instagram: string;
+  x: string;
+  photo: string;
+  youtube: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export function HomePageModel(sequelize: Sequelize) {
-  return sequelize.define<HomePageI>("front_home", {
+export function AboutSeniorPastorsModel(sequelize: Sequelize) {
+  return sequelize.define<AboutSeniorPastorsI>("front_about_senior", {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
-    titel: {
-      type: DataTypes.STRING,
-    },
-    tag: {
-      type: DataTypes.STRING,
+    name: {
+      type: DataTypes.TEXT("long"),
     },
     des: {
+      type: DataTypes.TEXT("long"),
+    },
+    facebook: {
       type: DataTypes.STRING,
     },
-    value: {
+    instagram: {
       type: DataTypes.STRING,
     },
-    involved: {
+    x: {
       type: DataTypes.STRING,
     },
-    i_new: {
+    youtube: {
       type: DataTypes.STRING,
     },
-    cover: {
+    photo: {
       type: DataTypes.STRING,
     },
   });

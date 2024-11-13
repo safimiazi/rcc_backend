@@ -24,10 +24,10 @@ export const HomePageController = {
         });
         return res.send(newData);
       }
-      // check if the old photo is exist or not
+      // check if the old photo exists
       const FileName = current.toJSON().cover;
 
-      if (FileName && opt) {
+      if (FileName) {
         const FilePath = path.join(destination, FileName);
         if (existsSync(FilePath)) {
           try {
@@ -38,29 +38,23 @@ export const HomePageController = {
         }
       }
 
-      if (opt) {
-        await current.update({
-          des: body.des,
-          i_new: body.i_new,
-          involved: body.involved,
-          tag: body.tag,
-          titel: body.titel,
-          value: body.value,
-          cover: opt,
-        });
-      } else {
-        await current.update({
-          des: body.des,
-          i_new: body.i_new,
-          involved: body.involved,
-          tag: body.tag,
-          titel: body.titel,
-          value: body.value,
-        });
-      }
+      // Update logic refactored to avoid duplication
+      const updateData = {
+        des: data?.des,
+        i_new: data?.i_new,
+        involved: data?.involved,
+        tag: data?.tag,
+        titel: data?.titel,
+        value: data?.value,
+        ...(opt && { cover: opt }),
+      };
+
+      const StatusR = await current.update(updateData);
+
       res.send(current);
     } catch (error) {
-      // if any error occurs then delete uploaded file
+      // Error handling for database operations
+      console.error("Database operation failed:", error);
       const { file } = req;
       const opt = file?.path || null;
       if (opt) {
