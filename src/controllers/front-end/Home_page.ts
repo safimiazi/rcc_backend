@@ -9,15 +9,18 @@ export const HomePageController = {
       const { body, file } = req;
       const opt = file?.opt || null;
 
+      const data = JSON.parse(body?.data);
+      console.log(data);
+
       const current = await db.HomePage.findOne();
       if (!current) {
         const newData = await db.HomePage.create({
-          des: body.des,
-          i_new: body.i_new,
-          involved: body.involved,
-          tag: body.tag,
-          titel: body.titel,
-          value: body.value,
+          des: data?.des,
+          i_new: data?.i_new,
+          involved: data?.involved,
+          tag: data?.tag,
+          titel: data?.titel,
+          value: data?.value,
           cover: opt,
         });
         return res.send(newData);

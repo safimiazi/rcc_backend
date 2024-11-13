@@ -57,7 +57,7 @@ export function HomePageModel(sequelize: Sequelize) {
     },
     cover: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
   });
 }
