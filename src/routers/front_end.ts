@@ -29,6 +29,7 @@ app.post(
   getMulter({
     destination: des,
   }).single("cover"),
+  photoComposure(des).single,
   AboutPageController.ChangeAboutPage
 );
 app.post(
@@ -37,6 +38,7 @@ app.post(
   getMulter({
     destination: des,
   }).single("mission"),
+  photoComposure(des).single,
   AboutPageController.ChangeAboutMissionCover
 );
 app.post(
@@ -45,7 +47,33 @@ app.post(
   getMulter({
     destination: des,
   }).single("roots"),
+  photoComposure(des).single,
   AboutPageController.ChangeAboutRootCover
+);
+
+// about senior pastors
+app.post(
+  "/create-senior-pastors",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("photo"),
+  photoComposure(des).single,
+  AboutPageController.CreateAboutSeniorPastors
+);
+app.post(
+  "/update-senior-pastors",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("photo"),
+  photoComposure(des).single,
+  AboutPageController.UpdateAboutSeniorPastors
+);
+app.post(
+  "/delete-senior-pastors",
+  IsAdmin,
+  AboutPageController.UpdateAboutSeniorPastors
 );
 
 // get app //

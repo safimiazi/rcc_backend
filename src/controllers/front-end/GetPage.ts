@@ -12,6 +12,10 @@ export const GetPageDataController = {
         // ... handle the condition
         const data = await db.AboutPage.findOne();
         return res.send(data);
+      } else if (page === "our_senior_pastor") {
+        // ... handle the condition
+        const data = await db.AboutSeniorPastors.findAll();
+        return res.send(data);
       }
     } catch (error) {
       next(error);
