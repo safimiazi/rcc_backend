@@ -24,7 +24,7 @@ app.post(
 );
 //- About JHS//-
 app.post(
-  "/update-about",
+  "/change-about-cover",
   IsAdmin,
   getMulter({
     destination: des,
