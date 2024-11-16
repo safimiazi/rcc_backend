@@ -62,11 +62,13 @@ export const AboutPageController = {
     try {
       const { body, file } = req;
       const opt = file?.opt || null;
+      const data = JSON.parse(body?.data);
       const current = await db.AboutPage.findOne();
       if (!current) {
         const newData = await db.AboutPage.create({
           our_mission_pic: opt,
-          our_mission: body.our_mission,
+          our_mission: data.our_mission,
+          our_value: data?.our_value,
         });
         return res.send(newData);
       }
@@ -85,11 +87,13 @@ export const AboutPageController = {
       if (opt) {
         await current.update({
           our_mission_pic: opt,
-          our_mission: body.our_mission,
+          our_mission: data.our_mission,
+          our_value: data?.our_value,
         });
       } else {
         await current.update({
-          our_mission: body.our_mission,
+          our_mission: data.our_mission,
+          our_value: data?.our_value,
         });
       }
       res.send(current);
@@ -111,11 +115,12 @@ export const AboutPageController = {
     try {
       const { body, file } = req;
       const opt = file?.opt || null;
+      const data = JSON.parse(body?.data);
       const current = await db.AboutPage.findOne();
       if (!current) {
         const newData = await db.AboutPage.create({
           our_roots_pic: opt,
-          our_roots: body.our_roots,
+          our_roots: data.our_roots,
         });
         return res.send(newData);
       }
@@ -134,11 +139,11 @@ export const AboutPageController = {
       if (opt) {
         await current.update({
           our_roots_pic: opt,
-          our_roots: body.our_roots,
+          our_roots: data.our_roots,
         });
       } else {
         await current.update({
-          our_roots: body.our_roots,
+          our_roots: data.our_roots,
         });
       }
       res.send(current);
