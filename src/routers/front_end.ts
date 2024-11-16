@@ -101,6 +101,11 @@ app.post(
   AboutPageController.UpdateAboutMinisterial
 );
 // Update about cover photo
+
+interface AboutPageBody {
+  name: "ministerial_team" | "contact_us" | "our_senior_pastors" | "our_values";
+}
+
 app.post(
   "/update-about-cover-photo",
   IsAdmin,
