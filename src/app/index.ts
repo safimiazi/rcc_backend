@@ -58,7 +58,7 @@ app.options("*", cors()); // Enable for all routes
 
 // Sync database
 db.sequelize.sync({
-  alter: false,
+  alter: false, 
   force: false,
 });
 
