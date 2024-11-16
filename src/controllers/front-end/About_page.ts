@@ -380,4 +380,10 @@ export const AboutPageController = {
       next(error);
     }
   },
+  async UpdateCoverPhoto(req, res, next) {
+    try {
+    } catch (error) {
+      next(error);
+    }
+  },
 };

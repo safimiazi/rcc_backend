@@ -13,6 +13,7 @@ import { HomePageModel } from "./model/front_end/Home";
 import { AboutPageModel } from "./model/front_end/About";
 import { AboutSeniorPastorsModel } from "./model/front_end/AboutSeniorPastors";
 import { AboutMinisterialModel } from "./model/front_end/AboutMinisterial";
+import { AboutCoverModel } from "./model/front_end/AboutCover";
 const LogQuery = true;
 
 const sequelize = new Sequelize({
@@ -54,6 +55,7 @@ const HomePage = HomePageModel(sequelize);
 const AboutPage = AboutPageModel(sequelize);
 const AboutSeniorPastors = AboutSeniorPastorsModel(sequelize);
 const AboutMinisterial = AboutMinisterialModel(sequelize);
+const AboutCover = AboutCoverModel(sequelize);
 
 Event.hasMany(EventUser, {
   foreignKey: "event_id",
@@ -79,4 +81,5 @@ export const db = {
   AboutPage,
   AboutSeniorPastors,
   AboutMinisterial,
+  AboutCover,
 } as const;
