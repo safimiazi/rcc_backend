@@ -382,8 +382,87 @@ export const AboutPageController = {
   },
   async UpdateCoverPhoto(req, res, next) {
     try {
+      const { body, file } = req;
+      const opt = file?.opt || null;
+      let CoverData = await db.AboutCover.findOne();
+
+      if (!CoverData) {
+        CoverData = await db.AboutCover.create({
+          ministerial_team: null,
+          contact_us: null,
+          our_senior_pastors: null,
+          our_values: null,
+        });
+      }
+
+      if (body.name === "ministerial_team") {
+        if (CoverData.toJSON().ministerial_team) {
+          const FileName = CoverData.toJSON().ministerial_team;
+          await DeleteFile(FileName, opt);
+        }
+        await CoverData.update({
+          ministerial_team: opt,
+        });
+        return res.send(CoverData);
+      }
+
+      if (body.name === "contact_us") {
+        if (CoverData.toJSON().contact_us) {
+          const FileName = CoverData.toJSON().contact_us;
+          await DeleteFile(FileName, opt);
+        }
+        await CoverData.update({
+          contact_us: opt,
+        });
+        return res.send(CoverData);
+      }
+
+      if (body.name === "our_senior_pastors") {
+        if (CoverData.toJSON().our_senior_pastors) {
+          const FileName = CoverData.toJSON().our_senior_pastors;
+          await DeleteFile(FileName, opt);
+        }
+        await CoverData.update({
+          our_senior_pastors: opt,
+        });
+        return res.send(CoverData);
+      }
+
+      if (body.name === "our_values") {
+        if (CoverData.toJSON().our_values) {
+          const FileName = CoverData.toJSON().our_values;
+          await DeleteFile(FileName, opt);
+        }
+        await CoverData.update({
+          our_values: opt,
+        });
+        return res.send(CoverData);
+      }
     } catch (error) {
+      // if any error occurs then delete uploaded file
+      const { file } = req;
+      const opt = file?.path || null;
+      if (opt) {
+        try {
+          await unlinkSync(opt + ".webp");
+        } catch (unlinkError) {
+          console.error("Error deleting file:", unlinkError);
+        }
+      }
       next(error);
     }
   },
+};
+
+const DeleteFile = async (FileName, opt) => {
+  if (FileName && opt) {
+    const FilePath = path.join(destination, FileName);
+    if (existsSync(FilePath)) {
+      try {
+        await unlinkSync(FilePath);
+      } catch (err) {
+        console.error("Error deleting the file:", err);
+      }
+    }
+  }
 };

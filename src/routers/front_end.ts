@@ -100,6 +100,16 @@ app.post(
   IsAdmin,
   AboutPageController.UpdateAboutMinisterial
 );
+// Update about cover photo
+app.post(
+  "/update-about-cover-photo",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  AboutPageController.UpdateCoverPhoto
+);
 
 // get app //
 app.get("/get/:page", GetPageDataController.getPageData);
