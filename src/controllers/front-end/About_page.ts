@@ -194,9 +194,10 @@ export const AboutPageController = {
     try {
       const { body, file } = req;
       const opt = file?.opt || null;
+      const data = JSON.parse(body?.data);
       const current = await db.AboutSeniorPastors.findOne({
         where: {
-          id: req.body.id,
+          id: data.id,
         },
       });
 
@@ -218,13 +219,13 @@ export const AboutPageController = {
       }
 
       const NewPastors = await current.update({
-        des: body.des,
-        facebook: body.facebook,
-        instagram: body.instagram,
-        name: body.name,
+        des: data.des,
+        facebook: data.facebook,
+        instagram: data.instagram,
+        name: data.name,
         photo: opt,
-        x: body.x,
-        youtube: body.youtube,
+        x: data.x,
+        youtube: data.youtube,
       });
       res.send(NewPastors);
     } catch (error) {
@@ -307,9 +308,10 @@ export const AboutPageController = {
     try {
       const { body, file } = req;
       const opt = file?.opt || null;
+      const data = JSON.parse(body?.data);
       const current = await db.AboutMinisterial.findOne({
         where: {
-          id: req.body.id,
+          id: data.id,
         },
       });
 
@@ -331,13 +333,13 @@ export const AboutPageController = {
       }
 
       const NewPastors = await current.update({
-        designation: body.designation,
-        facebook: body.facebook,
-        instagram: body.instagram,
-        name: body.name,
-        photo: opt,
-        x: body.x,
-        youtube: body.youtube,
+        designation: data.designation,
+        facebook: data.facebook,
+        instagram: data.instagram,
+        name: data.name,
+        photo: opt ? opt : current?.photo,
+        x: data.x,
+        youtube: data.youtube,
       });
       res.send(NewPastors);
     } catch (error) {
