@@ -165,14 +165,15 @@ export const AboutPageController = {
     try {
       const { body, file } = req;
       const opt = file?.opt || null;
+      const data = JSON.parse(body?.data);
       const NewPastors = await db.AboutSeniorPastors.create({
-        des: body.des,
-        facebook: body.facebook,
-        instagram: body.instagram,
-        name: body.name,
+        des: data.des,
+        facebook: data.facebook,
+        instagram: data.instagram,
+        name: data.name,
         photo: opt,
-        x: body.x,
-        youtube: body.youtube,
+        x: data.x,
+        youtube: data.youtube,
       });
       res.send(NewPastors);
     } catch (error) {
