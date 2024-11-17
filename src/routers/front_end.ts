@@ -73,7 +73,7 @@ app.post(
 app.post(
   "/delete-senior-pastors",
   IsAdmin,
-  AboutPageController.UpdateAboutSeniorPastors
+  AboutPageController.DeleteAboutSeniorPastors
 );
 
 // About Ministerial
