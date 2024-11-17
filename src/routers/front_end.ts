@@ -98,7 +98,7 @@ app.post(
 app.post(
   "/delete-ministerial",
   IsAdmin,
-  AboutPageController.UpdateAboutMinisterial
+  AboutPageController.DeleteAboutMinisterial
 );
 // Update about cover photo
 
