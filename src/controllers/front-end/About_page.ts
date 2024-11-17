@@ -223,7 +223,7 @@ export const AboutPageController = {
         facebook: data.facebook,
         instagram: data.instagram,
         name: data.name,
-        photo: opt,
+        photo: opt ? opt : current?.photo,
         x: data.x,
         youtube: data.youtube,
       });
