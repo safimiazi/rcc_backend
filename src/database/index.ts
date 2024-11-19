@@ -14,7 +14,7 @@ import { AboutPageModel } from "./model/front_end/About";
 import { AboutSeniorPastorsModel } from "./model/front_end/AboutSeniorPastors";
 import { AboutMinisterialModel } from "./model/front_end/AboutMinisterial";
 import { AboutCoverModel } from "./model/front_end/AboutCover";
-const LogQuery = true;
+const LogQuery = false;
 
 const sequelize = new Sequelize({
   dialect: "mysql",
