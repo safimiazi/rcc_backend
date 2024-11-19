@@ -73,7 +73,7 @@ app.post(
 app.post(
   "/delete-senior-pastors",
   IsAdmin,
-  AboutPageController.UpdateAboutSeniorPastors
+  AboutPageController.DeleteAboutSeniorPastors
 );
 
 // About Ministerial
@@ -98,7 +98,7 @@ app.post(
 app.post(
   "/delete-ministerial",
   IsAdmin,
-  AboutPageController.UpdateAboutMinisterial
+  AboutPageController.DeleteAboutMinisterial
 );
 // Update about cover photo
 
