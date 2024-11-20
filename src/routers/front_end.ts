@@ -6,6 +6,7 @@ import photoComposure from "@/middleware/multer/photoComposure";
 import CreateRouter from "@CreateRoute";
 import { GetPageDataController } from "@/controllers/front-end/GetPage";
 import { AboutPageController } from "@/controllers/front-end/About_page";
+import { MinistryController } from "@/controllers/front-end/Ministry.controller";
 const des = path.join(__dirname, "..", "public/media/cover");
 
 // create registration route
@@ -114,6 +115,76 @@ app.post(
   }).single("cover"),
   photoComposure(des).single,
   AboutPageController.UpdateCoverPhoto
+);
+
+// Ministry
+app.post(
+  "/update-ministry-children-cover",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.children.UpdateCover
+);
+
+app.post(
+  "/update-ministry-children-junior",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.children.UpdateJunior
+);
+
+app.post(
+  "/update-ministry-children-kids",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.children.UpdateKids
+);
+
+app.post(
+  "/update-ministry-children-teenagers",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.children.UpdateTeenagers
+);
+
+app.post(
+  "/update-ministry-children-teens",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.children.UpdateTeens
+);
+app.post(
+  "/update-ministry-children-tots_for_christ",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.children.UpdateTots_for_christ
+);
+app.post(
+  "/update-ministry-children-children_ministry",
+  IsAdmin,
+  MinistryController.children.UpdateChildren_ministry
+);
+app.post(
+  "/update-ministry-children-goals",
+  IsAdmin,
+  MinistryController.children.UpdateGoals
 );
 
 // get app //
