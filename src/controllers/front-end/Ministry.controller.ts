@@ -553,7 +553,6 @@ export const MinistryController = {
         next(error);
       }
     },
-
     async UpdateTitelDescription(req, res, next) {
       try {
         const { body } = req;
@@ -579,6 +578,41 @@ export const MinistryController = {
 
         res.send(IsExist);
       } catch (error) {
+        next(error);
+      }
+    },
+    async AddCard(req, res, next) {
+      try {
+        const { file, body } = req;
+        const opt = file?.opt || null;
+
+        const Parent = await db.ValourMinistry.findOne({
+          where: {
+            type: body.type,
+          },
+        });
+
+        if (!Parent) {
+          throw errorCreate(401, `please add ${body.type} data first   `);
+        }
+
+        const NewData = await db.ValourC_Ministry.create({
+          cover: opt,
+          description: body.description,
+          valour_id: Parent.id,
+        });
+        res.send(NewData);
+      } catch (error) {
+        const { file } = req;
+        const opt = file?.path || null;
+        if (opt) {
+          try {
+            await unlinkSync(opt + ".webp");
+          } catch (unlinkError) {
+            console.error("Error deleting file:", unlinkError);
+          }
+        }
+        console.log("🚀 ~ UpdateCover ~ error:", error);
         next(error);
       }
     },
