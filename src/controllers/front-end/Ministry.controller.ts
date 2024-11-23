@@ -344,4 +344,102 @@ export const MinistryController = {
       }
     },
   },
+  // Builder page
+  builder: {
+    async UpdateBuilderPageCover(req, res, next) {
+      try {
+        const { file } = req;
+        const opt = file?.opt || null;
+        const IsExist = await db.BuilderMinistry.findOne();
+        if (!IsExist) {
+          const NewData = await db.BuilderMinistry.create({
+            cover: opt,
+          });
+          return res.send(NewData);
+        }
+        // if data is already exists then update it
+        const FileName = IsExist.toJSON().cover;
+        if (FileName && opt) {
+          const FilePath = path.join(destination, FileName);
+          if (existsSync(FilePath)) {
+            try {
+              await unlinkSync(FilePath);
+            } catch (err) {
+              console.error("Error deleting the file:", err);
+            }
+          }
+          const Update = await IsExist.update({
+            cover: opt,
+          });
+          return res.send(IsExist);
+        }
+        if (opt) {
+          const Update = await IsExist.update({
+            cover: opt,
+          });
+
+          return res.send(IsExist);
+        }
+        throw errorCreate(406, "file Not Uploaded");
+      } catch (error) {
+        const { file } = req;
+        const opt = file?.path || null;
+        if (opt) {
+          try {
+            await unlinkSync(opt + ".webp");
+          } catch (unlinkError) {
+            console.error("Error deleting file:", unlinkError);
+          }
+        }
+        console.log("🚀 ~ UpdateCover ~ error:", error);
+        next(error);
+      }
+    },
+    async UpdateBuilderPAgeData(req, res, next) {
+      try {
+        const { file, body } = req;
+        const opt = file?.opt || null;
+        const IsExist = await db.BuilderMinistry.findOne();
+
+        if (!IsExist) {
+          const NewData = await db.BuilderMinistry.create({
+            photo: opt,
+            description: body.description,
+          });
+          return res.send(NewData);
+        }
+
+        // if data is already exists then update it
+        const FileName = IsExist.toJSON().photo;
+        if (FileName && opt) {
+          const FilePath = path.join(destination, FileName);
+          if (existsSync(FilePath)) {
+            try {
+              await unlinkSync(FilePath);
+            } catch (err) {
+              console.error("Error deleting the file:", err);
+            }
+          }
+        }
+
+        const Update = await IsExist.update({
+          photo: opt,
+          description: body.description,
+        });
+        return res.send(IsExist);
+      } catch (error) {
+        const { file } = req;
+        const opt = file?.path || null;
+        if (opt) {
+          try {
+            await unlinkSync(opt + ".webp");
+          } catch (unlinkError) {
+            console.error("Error deleting file:", unlinkError);
+          }
+        }
+        console.log("🚀 ~ UpdateCover ~ error:", error);
+        next(error);
+      }
+    },
+  },
 };

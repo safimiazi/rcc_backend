@@ -187,6 +187,26 @@ app.post(
   MinistryController.children.UpdateGoals
 );
 
+// ministry builder page data
+app.post(
+  "/update-ministry-builder-cover",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.builder.UpdateBuilderPageCover
+);
+app.post(
+  "/update-ministry-builder-data",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.builder.UpdateBuilderPAgeData
+);
+
 // get app //
 app.get("/get/:page", GetPageDataController.getPageData);
 

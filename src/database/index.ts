@@ -15,6 +15,7 @@ import { AboutSeniorPastorsModel } from "./model/front_end/AboutSeniorPastors";
 import { AboutMinisterialModel } from "./model/front_end/AboutMinisterial";
 import { AboutCoverModel } from "./model/front_end/AboutCover";
 import { ChildrenMinistryModel } from "./model/front_end/ministry/children_ministry";
+import { BuilderMinistryModel } from "./model/front_end/ministry/builder_ministry";
 const LogQuery = false;
 
 const sequelize = new Sequelize({
@@ -58,6 +59,7 @@ const AboutSeniorPastors = AboutSeniorPastorsModel(sequelize);
 const AboutMinisterial = AboutMinisterialModel(sequelize);
 const AboutCover = AboutCoverModel(sequelize);
 const ChildrenMinistry = ChildrenMinistryModel(sequelize);
+const BuilderMinistry = BuilderMinistryModel(sequelize);
 
 Event.hasMany(EventUser, {
   foreignKey: "event_id",
@@ -85,4 +87,5 @@ export const db = {
   AboutMinisterial,
   AboutCover,
   ChildrenMinistry,
+  BuilderMinistry,
 } as const;
