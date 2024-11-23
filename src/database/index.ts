@@ -16,6 +16,8 @@ import { AboutMinisterialModel } from "./model/front_end/AboutMinisterial";
 import { AboutCoverModel } from "./model/front_end/AboutCover";
 import { ChildrenMinistryModel } from "./model/front_end/ministry/children_ministry";
 import { BuilderMinistryModel } from "./model/front_end/ministry/builder_ministry";
+import { ValourMinistryModel } from "./model/front_end/ministry/Valour_ministry";
+import { ValourC_MinistryModel } from "./model/front_end/ministry/Valour_c_ministry";
 const LogQuery = false;
 
 const sequelize = new Sequelize({
@@ -60,6 +62,8 @@ const AboutMinisterial = AboutMinisterialModel(sequelize);
 const AboutCover = AboutCoverModel(sequelize);
 const ChildrenMinistry = ChildrenMinistryModel(sequelize);
 const BuilderMinistry = BuilderMinistryModel(sequelize);
+const ValourMinistry = ValourMinistryModel(sequelize);
+const ValourC_Ministry = ValourC_MinistryModel(sequelize);
 
 Event.hasMany(EventUser, {
   foreignKey: "event_id",
@@ -71,6 +75,16 @@ EventUser.belongsTo(Event, {
   foreignKey: "event_id",
   as: "event",
   onDelete: "CASCADE",
+});
+
+// relation with ValourMinistry <  ValourC_Ministry
+
+ValourMinistry.hasMany(ValourC_Ministry, {
+  foreignKey: "valour_id",
+});
+
+ValourC_Ministry.belongsTo(ValourMinistry, {
+  foreignKey: "valour_id",
 });
 
 export const db = {
@@ -88,4 +102,6 @@ export const db = {
   AboutCover,
   ChildrenMinistry,
   BuilderMinistry,
+  ValourC_Ministry,
+  ValourMinistry,
 } as const;
