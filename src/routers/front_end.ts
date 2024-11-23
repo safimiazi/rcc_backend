@@ -206,6 +206,32 @@ app.post(
   photoComposure(des).single,
   MinistryController.builder.UpdateBuilderPAgeData
 );
+// valour page (men , women)
+app.post(
+  "/update-ministry-valour-cover-men",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.valour.UpdateMenCover
+);
+app.post(
+  "/update-ministry-valour-cover-women",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.valour.UpdateWomenCover
+);
+
+// send type: 'men | 'women : for update specific page
+app.post(
+  "/update-ministry-valour-men-women-description",
+  IsAdmin,
+  MinistryController.valour.UpdateTitelDescription
+);
 
 // get app //
 app.get("/get/:page", GetPageDataController.getPageData);

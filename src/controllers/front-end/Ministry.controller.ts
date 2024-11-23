@@ -442,4 +442,145 @@ export const MinistryController = {
       }
     },
   },
+  valour: {
+    async UpdateMenCover(req, res, next) {
+      try {
+        const { file } = req;
+        const opt = file?.opt || null;
+        const IsExist = await db.ValourMinistry.findOne({
+          where: {
+            type: "men",
+          },
+        });
+
+        if (!IsExist) {
+          const NewData = await db.ValourMinistry.create({
+            cover: opt,
+            type: "men",
+          });
+          return res.send(NewData);
+        }
+        // if data is already exists then update it
+        const FileName = IsExist.toJSON().cover;
+        if (FileName && opt) {
+          const FilePath = path.join(destination, FileName);
+          if (existsSync(FilePath)) {
+            try {
+              await unlinkSync(FilePath);
+            } catch (err) {
+              console.error("Error deleting the file:", err);
+            }
+          }
+          const Update = await IsExist.update({
+            cover: opt,
+          });
+          return res.send(IsExist);
+        }
+        if (opt) {
+          const Update = await IsExist.update({
+            cover: opt,
+          });
+
+          return res.send(IsExist);
+        }
+        throw errorCreate(406, "file Not Uploaded");
+      } catch (error) {
+        const { file } = req;
+        const opt = file?.path || null;
+        if (opt) {
+          try {
+            await unlinkSync(opt + ".webp");
+          } catch (unlinkError) {
+            console.error("Error deleting file:", unlinkError);
+          }
+        }
+        console.log("🚀 ~ UpdateCover ~ error:", error);
+        next(error);
+      }
+    },
+    async UpdateWomenCover(req, res, next) {
+      try {
+        const { file } = req;
+        const opt = file?.opt || null;
+        const IsExist = await db.ValourMinistry.findOne({
+          where: {
+            type: "women",
+          },
+        });
+
+        if (!IsExist) {
+          const NewData = await db.ValourMinistry.create({
+            cover: opt,
+            type: "women",
+          });
+          return res.send(NewData);
+        }
+        // if data is already exists then update it
+        const FileName = IsExist.toJSON().cover;
+        if (FileName && opt) {
+          const FilePath = path.join(destination, FileName);
+          if (existsSync(FilePath)) {
+            try {
+              await unlinkSync(FilePath);
+            } catch (err) {
+              console.error("Error deleting the file:", err);
+            }
+          }
+          const Update = await IsExist.update({
+            cover: opt,
+          });
+          return res.send(IsExist);
+        }
+        if (opt) {
+          const Update = await IsExist.update({
+            cover: opt,
+          });
+
+          return res.send(IsExist);
+        }
+        throw errorCreate(406, "file Not Uploaded");
+      } catch (error) {
+        const { file } = req;
+        const opt = file?.path || null;
+        if (opt) {
+          try {
+            await unlinkSync(opt + ".webp");
+          } catch (unlinkError) {
+            console.error("Error deleting file:", unlinkError);
+          }
+        }
+        console.log("🚀 ~ UpdateCover ~ error:", error);
+        next(error);
+      }
+    },
+
+    async UpdateTitelDescription(req, res, next) {
+      try {
+        const { body } = req;
+        const IsExist = await db.ValourMinistry.findOne({
+          where: {
+            type: body.type,
+          },
+        });
+
+        if (!IsExist) {
+          const NewData = await db.ValourMinistry.create({
+            description: body.description,
+            title: body.title,
+            type: body.type,
+          });
+          return res.send(NewData);
+        }
+
+        const UpdateData = await IsExist.update({
+          title: body.title,
+          description: body.description,
+        });
+
+        res.send(IsExist);
+      } catch (error) {
+        next(error);
+      }
+    },
+  },
 };
