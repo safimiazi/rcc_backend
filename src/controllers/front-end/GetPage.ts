@@ -20,6 +20,7 @@ export const GetPageDataController = {
         // ... handle the condition
         const data = await db.AboutMinisterial.findAll();
         return res.send(data);
+        // about cover page route
       } else if (page === "about_cover") {
         const data = await db.AboutCover.findOne();
         return res.send(data);
