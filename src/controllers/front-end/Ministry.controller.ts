@@ -621,5 +621,41 @@ export const MinistryController = {
         next(error);
       }
     },
+    async DeleteCard(req, res, next) {
+      try {
+        const { body } = req;
+        const OldData = await db.ValourC_Ministry.findOne({
+          where: {
+            id: body.id,
+          },
+        });
+
+        if (!OldData) {
+          throw errorCreate(404, "Data not found");
+        }
+
+        const FileName = OldData.toJSON().cover;
+
+        if (FileName) {
+          const FilePath = path.join(destination, FileName);
+          if (existsSync(FilePath)) {
+            try {
+              await unlinkSync(FilePath);
+            } catch (err) {
+              console.error("Error deleting the file:", err);
+            }
+          }
+        }
+
+        await OldData.destroy();
+
+        res.send({
+          delete: true,
+          id: body.id,
+        });
+      } catch (error) {
+        next(error);
+      }
+    },
   },
 };

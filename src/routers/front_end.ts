@@ -230,6 +230,22 @@ app.post(
   MinistryController.valour.UpdateWomenCover
 );
 
+app.post(
+  "/add-ministry-valour-card",
+  IsAdmin,
+  getMulter({
+    destination: des,
+  }).single("cover"),
+  photoComposure(des).single,
+  MinistryController.valour.AddCard
+);
+
+app.post(
+  "/delete-ministry-valour-card",
+  IsAdmin,
+  MinistryController.valour.DeleteCard
+);
+
 // send type: 'men | 'women : for update specific page
 app.post(
   "/update-ministry-valour-men-women-description",
