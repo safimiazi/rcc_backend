@@ -109,6 +109,7 @@ export const MinistryController = {
         }
         const Update = await IsExist.update({
           tots_for_christ: body.tots_for_christ,
+          tots_for_christ_cover: opt,
         });
 
         return res.send(IsExist);
@@ -159,6 +160,7 @@ export const MinistryController = {
         }
         const Update = await IsExist.update({
           junior: body.junior,
+          junior_cover: opt,
         });
 
         return res.send(IsExist);
@@ -209,6 +211,7 @@ export const MinistryController = {
         }
         const Update = await IsExist.update({
           kids: body.kids,
+          kids_cover: opt,
         });
 
         return res.send(IsExist);
@@ -259,6 +262,7 @@ export const MinistryController = {
         }
         const Update = await IsExist.update({
           teens: body.teens,
+          teens_cover: opt,
         });
 
         return res.send(IsExist);
@@ -309,6 +313,7 @@ export const MinistryController = {
         }
         const Update = await IsExist.update({
           teenagers: body.teenagers,
+          teenagers_cover: opt,
         });
 
         return res.send(IsExist);
