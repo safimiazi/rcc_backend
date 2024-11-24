@@ -178,11 +178,13 @@ app.post(
   photoComposure(des).single,
   MinistryController.children.UpdateTots_for_christ
 );
+
 app.post(
   "/update-ministry-children-children_ministry",
   IsAdmin,
   MinistryController.children.UpdateChildren_ministry
 );
+
 app.post(
   "/update-ministry-children-goals",
   IsAdmin,
