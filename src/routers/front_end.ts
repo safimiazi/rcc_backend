@@ -107,6 +107,8 @@ interface AboutPageBody {
   name: "ministerial_team" | "contact_us" | "our_senior_pastors" | "our_values";
 }
 
+// update cover photo use filed "name" = "ministerial_team" | "contact_us" | "our_senior_pastors" | "our_values"
+// and set photo cover
 app.post(
   "/update-about-cover-photo",
   IsAdmin,
