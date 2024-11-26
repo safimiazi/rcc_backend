@@ -18,6 +18,7 @@ import { ChildrenMinistryModel } from "./model/front_end/ministry/children_minis
 import { BuilderMinistryModel } from "./model/front_end/ministry/builder_ministry";
 import { ValourMinistryModel } from "./model/front_end/ministry/Valour_ministry";
 import { ValourC_MinistryModel } from "./model/front_end/ministry/Valour_c_ministry";
+import { become_a_new_believersModel } from "./model/front_end/get_involved/become_a_new_believers";
 const LogQuery = false;
 
 const sequelize = new Sequelize({
@@ -64,6 +65,7 @@ const ChildrenMinistry = ChildrenMinistryModel(sequelize);
 const BuilderMinistry = BuilderMinistryModel(sequelize);
 const ValourMinistry = ValourMinistryModel(sequelize);
 const ValourC_Ministry = ValourC_MinistryModel(sequelize);
+const become_a_new_believers = become_a_new_believersModel(sequelize);
 
 Event.hasMany(EventUser, {
   foreignKey: "event_id",
@@ -104,4 +106,5 @@ export const db = {
   BuilderMinistry,
   ValourC_Ministry,
   ValourMinistry,
+  become_a_new_believers,
 } as const;
