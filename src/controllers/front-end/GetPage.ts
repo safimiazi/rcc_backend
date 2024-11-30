@@ -39,6 +39,30 @@ export const GetPageDataController = {
           ],
         });
         return res.send(data);
+      } else if (page === "men") {
+        const data = await db.ValourMinistry.findOne({
+          where: {
+            type: "men",
+          },
+          include: [
+            {
+              model: db.ValourC_Ministry,
+            },
+          ],
+        });
+        return res.send(data);
+      } else if (page === "women") {
+        const data = await db.ValourMinistry.findOne({
+          where: {
+            type: "women",
+          },
+          include: [
+            {
+              model: db.ValourC_Ministry,
+            },
+          ],
+        });
+        return res.send(data);
       }
     } catch (error) {
       next(error);

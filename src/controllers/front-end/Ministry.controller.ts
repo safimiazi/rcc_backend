@@ -592,6 +592,7 @@ export const MinistryController = {
         const opt = file?.opt || null;
 
         const Parent = await db.ValourMinistry.findOne({
+          // "men" | "women"
           where: {
             type: body.type,
           },

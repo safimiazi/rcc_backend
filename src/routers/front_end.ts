@@ -201,6 +201,7 @@ app.post(
   photoComposure(des).single,
   MinistryController.builder.UpdateBuilderPageCover
 );
+
 app.post(
   "/update-ministry-builder-data",
   IsAdmin,
@@ -210,6 +211,7 @@ app.post(
   photoComposure(des).single,
   MinistryController.builder.UpdateBuilderPAgeData
 );
+
 // valour page (men , women)
 app.post(
   "/update-ministry-valour-cover-men",
@@ -220,6 +222,7 @@ app.post(
   photoComposure(des).single,
   MinistryController.valour.UpdateMenCover
 );
+
 app.post(
   "/update-ministry-valour-cover-women",
   IsAdmin,
