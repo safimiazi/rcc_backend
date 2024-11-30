@@ -30,15 +30,6 @@ export const GetPageDataController = {
       } else if (page === "builder_ministry") {
         const data = await db.BuilderMinistry.findOne();
         return res.send(data);
-      } else if (page === "builder_ministry") {
-        const data = await db.ValourMinistry.findOne({
-          include: [
-            {
-              model: db.ValourC_Ministry,
-            },
-          ],
-        });
-        return res.send(data);
       } else if (page === "men") {
         const data = await db.ValourMinistry.findOne({
           where: {
@@ -50,6 +41,7 @@ export const GetPageDataController = {
             },
           ],
         });
+        console.log(data);
         return res.send(data);
       } else if (page === "women") {
         const data = await db.ValourMinistry.findOne({
