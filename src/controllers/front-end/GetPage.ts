@@ -14,11 +14,15 @@ export const GetPageDataController = {
         return res.send(data);
       } else if (page === "our_senior_pastor") {
         // ... handle the condition
-        const data = await db.AboutSeniorPastors.findAll();
+        const data = await db.AboutSeniorPastors.findAll({
+          order: [["createdAt", "ASC"]], // Change 'ASC' to 'DESC' for descending order
+        });
         return res.send(data);
       } else if (page === "ministerial_team") {
         // ... handle the condition
-        const data = await db.AboutMinisterial.findAll();
+        const data = await db.AboutMinisterial.findAll({
+          order: [["createdAt", "ASC"]], // Change 'ASC' to 'DESC' for descending order
+        });
         return res.send(data);
         // about cover page route
       } else if (page === "about_cover") {
