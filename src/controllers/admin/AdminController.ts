@@ -20,6 +20,7 @@ export const AdminController = {
       }
       // get the current admin
       const AdminInDatabase = await adminService.GetByEmail(email);
+
       if (!AdminInDatabase) {
         throw errorCreate(404, "Please enter a The Correct Credentials !");
       }
