@@ -101,24 +101,24 @@ export const MinistryController = {
               console.error("Error deleting the file:", err);
             }
           }
-
-          if (opt) {
-            const Update = await IsExist.update({
-              tots_for_christ: body.tots_for_christ,
-              tots_for_christ_cover: opt,
-            });
-          } else {
-            const Update = await IsExist.update({
-              tots_for_christ: body.tots_for_christ,
-            });
-          }
+          const Update = await IsExist.update({
+            tots_for_christ: body.tots_for_christ,
+            tots_for_christ_cover: opt,
+          });
 
           return res.send(IsExist);
         }
-        const Update = await IsExist.update({
-          tots_for_christ: body.tots_for_christ,
-          tots_for_christ_cover: opt,
-        });
+
+        if (opt) {
+          const Update = await IsExist.update({
+            tots_for_christ: body.tots_for_christ,
+            tots_for_christ_cover: opt,
+          });
+        } else {
+          const Update = await IsExist.update({
+            tots_for_christ: body.tots_for_christ,
+          });
+        }
 
         return res.send(IsExist);
       } catch (error) {
@@ -166,10 +166,17 @@ export const MinistryController = {
           });
           return res.send(IsExist);
         }
-        const Update = await IsExist.update({
-          junior: body.junior,
-          junior_cover: opt,
-        });
+
+        if (opt) {
+          const Update = await IsExist.update({
+            junior: body.junior,
+            junior_cover: opt,
+          });
+        } else {
+          const Update = await IsExist.update({
+            junior: body.junior,
+          });
+        }
 
         return res.send(IsExist);
       } catch (error) {
