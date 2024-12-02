@@ -1,5 +1,4 @@
 import { db } from "@/database";
-import { AdminModel } from "@/database/model/Admin";
 import { compare } from "@/utility/encryption";
 
 export const ProfileController = {
